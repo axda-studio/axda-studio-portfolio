@@ -32,6 +32,11 @@ export function generateStaticParams() {
   return LOCALES.map((locale) => ({ locale }))
 }
 
+export const metadata = {
+  title: "Axda Studio",
+  description: "Frontend engineering with a designer's eye.",
+}
+
 export default async function RootLayout({
   params,
   children,

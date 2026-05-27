@@ -17,7 +17,7 @@ export class HeaderFixture {
     this.themeSelector = this.root.getByRole("button", {
       name: /toggle theme/i,
     })
-    this.localeSelector = this.root.getByRole("combobox")
+    this.localeSelector = this.root.getByTestId("locale-selector")
   }
 
   navItem(label: (typeof NAV_ITEMS)[number]["label"]): Locator {
