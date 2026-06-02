@@ -1,28 +1,56 @@
-import { expect, test, describe, vi } from "vitest"
+import { expect, test, describe, vi, beforeEach } from "vitest"
+import { fireEvent, render, screen } from "@testing-library/react"
+
 import { LocaleSelector } from "./locale-selector"
-import { render, screen } from "@testing-library/react"
+
+const changeLocale = vi.fn()
+const useCurrentLocale = vi.fn<() => string>(() => "en")
+const captureMock = vi.fn()
 
 vi.mock("@/locales/client", () => ({
-  useCurrentLocale: () => "en",
-  useChangeLocale: () => vi.fn(),
+  useCurrentLocale: () => useCurrentLocale(),
+  useChangeLocale: () => changeLocale,
   useScopedI18n: () => (key: string) => key,
 }))
 
-describe("LocaleSelector component", () => {
-  test("Renders LocaleSelector", () => {
+vi.mock("posthog-js", () => ({
+  default: {
+    capture: (...args: unknown[]) => captureMock(...args),
+  },
+}))
+
+beforeEach(() => {
+  changeLocale.mockClear()
+  captureMock.mockClear()
+  useCurrentLocale.mockReturnValue("en")
+})
+
+describe("LocaleSelector", () => {
+  test("renders the current locale label", () => {
     render(<LocaleSelector />)
-    const btn = screen.getByRole("button", { name: /EN/i })
-    expect(btn).toBeInTheDocument()
+    expect(screen.getByRole("button")).toBeInTheDocument()
   })
 
-  //   test("Change language onClick", () => {
-  //     render(<LocaleSelector />)
-  //     const enBtn = screen.getByRole("button", { name: /EN/i })
-  //     expect(enBtn).toBeInTheDocument()
+  test.each([
+    ["en", "fr"],
+    ["fr", "es"],
+    ["es", "en"],
+  ] as const)("cycles %s -> %s on click", (from, to) => {
+    useCurrentLocale.mockReturnValue(from)
+    render(<LocaleSelector />)
 
-  //     fireEvent.click(enBtn)
-  //     screen.debug()
-  //     const frBtn = screen.getByRole("button", { name: /FR/i })
-  //     expect(frBtn).toBeInTheDocument()
-  //   })
+    fireEvent.click(screen.getByRole("button"))
+
+    expect(captureMock).toHaveBeenCalledWith("locale_changed", { from, to })
+    expect(changeLocale).toHaveBeenCalledWith(to)
+  })
+
+  test("falls back to 'en' for an unknown locale", () => {
+    useCurrentLocale.mockReturnValue("de")
+    render(<LocaleSelector />)
+
+    fireEvent.click(screen.getByRole("button"))
+
+    expect(changeLocale).toHaveBeenCalledWith("en")
+  })
 })

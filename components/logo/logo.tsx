@@ -1,6 +1,11 @@
 import Link from "next/link"
+import { cn } from "@/lib/utils"
 
-export function Logo() {
+interface LogoProps {
+  variant: "mobile" | "desktop"
+}
+
+export function Logo({ variant }: LogoProps) {
   return (
     <Link data-testid="logo" href="/" className="flex items-center gap-2">
       <svg
@@ -9,7 +14,10 @@ export function Logo() {
         viewBox="0 0 100 100"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
-        className="h-8 w-8"
+        className={cn({
+          "h-8 w-8": variant === "desktop",
+          "h-6 w-6": variant === "mobile",
+        })}
       >
         <circle cx="50" cy="50" r="50" className="fill-foreground" />
         <path

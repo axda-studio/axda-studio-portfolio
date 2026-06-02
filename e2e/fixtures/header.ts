@@ -1,5 +1,5 @@
 import { expect, type Locator, type Page } from "@playwright/test"
-import { NAV_ITEMS } from "@/components/header/nav"
+import { NAV_ITEMS } from "@/components/nav/nav"
 
 export class HeaderFixture {
   readonly root: Locator
