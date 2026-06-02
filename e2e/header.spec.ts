@@ -1,5 +1,5 @@
 import { test, expect } from "./fixtures"
-import { NAV_ITEMS } from "@/components/header/nav"
+import { NAV_ITEMS } from "@/components/nav/nav"
 
 test.describe("Header", () => {
   test.beforeEach(async ({ page }) => {

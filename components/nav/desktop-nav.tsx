@@ -6,15 +6,15 @@ import { getScopedI18n } from "@/locales/server"
 import { NavLink } from "./nav-link"
 import { CtaLink } from "./cta-link"
 
-export async function Header() {
+export async function DesktopNav() {
   const t = await getScopedI18n("header")
 
   return (
     <header
       data-testid="header"
-      className="fixed top-6 z-10 flex w-full max-w-6xl items-center justify-between rounded-full border bg-popover/70 px-3 py-2 text-sm backdrop-blur-md"
+      className="fixed top-6 z-10 hidden w-full max-w-6xl items-center justify-between rounded-full border bg-popover/70 px-3 py-2 text-sm backdrop-blur-md lg:flex"
     >
-      <Logo />
+      <Logo variant="desktop" />
       <nav aria-label="primary">
         <ul className="flex items-center gap-2">
           {NAV_ITEMS.map((navItem) => (
