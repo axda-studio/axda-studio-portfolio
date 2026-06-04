@@ -54,7 +54,8 @@ export default async function RootLayout({
         geist.variable,
         "font-sans",
         instrumentSerif.variable,
-        jetBrainsMono.variable
+        jetBrainsMono.variable,
+        "selection:bg-primary selection:text-white"
       )}
     >
       <body>

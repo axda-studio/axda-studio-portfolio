@@ -31,5 +31,6 @@ export const MOBILE_NAV_ITEMS = [
 
 export const CONTACT_URL = "#contact" as const
 export const WORK_URL = "#work" as const
+export const CLAUDE_CODE_URL = "#claude-code" as const
 export const APPOINTMENT_BOOKING_URL =
   "https://calendar.app.google/VEmfweYv5o8gjiva6"
