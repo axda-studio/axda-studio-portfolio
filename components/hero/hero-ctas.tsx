@@ -5,7 +5,7 @@ import posthog from "posthog-js"
 import { MoveUpRight } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
-import { WORK_URL, APPOINTMENT_BOOKING_URL } from "@/components/nav/nav"
+import { WORK_URL, CAL_URL } from "@/components/nav/nav"
 
 interface HeroCtasProps {
   primaryLabel: string
@@ -45,7 +45,7 @@ export function HeroCtas({ primaryLabel, secondaryLabel }: HeroCtasProps) {
       </Button>
       <Button asChild className="rounded-full p-4" variant="outline">
         <a
-          href={APPOINTMENT_BOOKING_URL}
+          href={CAL_URL}
           target="_blank"
           rel="noopener noreferrer"
           onClick={handleSecondaryClick}

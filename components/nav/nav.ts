@@ -32,5 +32,9 @@ export const MOBILE_NAV_ITEMS = [
 export const CONTACT_URL = "#contact" as const
 export const WORK_URL = "#work" as const
 export const CLAUDE_CODE_URL = "#claude-code" as const
-export const APPOINTMENT_BOOKING_URL =
-  "https://calendar.app.google/VEmfweYv5o8gjiva6"
+
+export const EMAIL_ADDRESS = "hello@axda-studio.fr" as const
+export const EMAIL_HREF = `mailto:${EMAIL_ADDRESS}` as const
+export const CAL_URL = "https://calendar.app.google/VEmfweYv5o8gjiva6" as const
+export const GITHUB_URL = "https://github.com/axda-studio" as const
+export const LINKEDIN_URL = "https://www.linkedin.com/in/alyx-darenne" as const

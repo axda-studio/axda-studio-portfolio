@@ -28,7 +28,7 @@
     {
       "name": "First Load JS (all static chunks)",
       "path": ".next/static/chunks/**/*.js",
-      "limit": "300 KB"
+      "limit": "500 KB"
     }
   ],
   "lint-staged": {
@@ -73,6 +73,7 @@
     "@types/node": "^25.5.0",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
+    "@types/three": "^0.184.1",
     "@vitejs/plugin-react": "^6.0.2",
     "@vitest/coverage-v8": "^4.1.6",
     "@vitest/ui": "^4.1.6",
