@@ -1,11 +1,26 @@
 import { test, expect } from "./fixtures"
-import { APPOINTMENT_BOOKING_URL } from "@/components/nav/nav"
+import { CAL_URL } from "@/components/nav/nav"
 import { PILLARS } from "@/components/pillar-card/constants"
 import { STACK_ITEMS } from "@/components/stack-card/constants"
+import { FAQ_ITEMS } from "@/components/faq/constants"
 import enPillars from "@/locales/en/pillars"
 import enStack from "@/locales/en/stack"
+import enFaq from "@/locales/en/faq"
+import enContact from "@/locales/en/contact"
+import enWork from "@/locales/en/work"
+import enClaudeCode from "@/locales/en/claude-code"
+import enAbout from "@/locales/en/about"
 
-const SECTION_IDS = ["work", "stack", "about", "faq", "contact"] as const
+const SECTION_IDS = [
+  "hero",
+  "pillars",
+  "work",
+  "stack",
+  "claude-code",
+  "about",
+  "faq",
+  "contact",
+] as const
 
 test.describe("Home page", () => {
   test.beforeEach(async ({ page }) => {
@@ -44,7 +59,7 @@ test.describe("Home page", () => {
     page,
   }) => {
     const booking = page.getByRole("link", { name: /schedule a call/i })
-    await expect(booking).toHaveAttribute("href", APPOINTMENT_BOOKING_URL)
+    await expect(booking).toHaveAttribute("href", CAL_URL)
     await expect(booking).toHaveAttribute("target", "_blank")
     await expect(booking).toHaveAttribute("rel", /noopener/)
     await expect(booking).toHaveAttribute("rel", /noreferrer/)
@@ -56,6 +71,42 @@ test.describe("Home page", () => {
         await expect(page.locator(`#${id}`)).toBeAttached()
       })
     }
+  })
+})
+
+test.describe("Home page — work section", () => {
+  test.beforeEach(async ({ page }) => {
+    await page.goto("/")
+  })
+
+  test("renders the eyebrow and tagline", async ({ page }) => {
+    const section = page.locator("#work")
+    await expect(section.getByText(enWork.eyebrow)).toBeVisible()
+    await expect(section.getByText(enWork.tagline)).toBeVisible()
+  })
+})
+
+test.describe("Home page — claude-code section", () => {
+  test.beforeEach(async ({ page }) => {
+    await page.goto("/")
+  })
+
+  test("renders the eyebrow and tagline", async ({ page }) => {
+    const section = page.locator("#claude-code")
+    await expect(section.getByText(enClaudeCode.eyebrow)).toBeVisible()
+    await expect(section.getByText(enClaudeCode.tagline)).toBeVisible()
+  })
+})
+
+test.describe("Home page — about section", () => {
+  test.beforeEach(async ({ page }) => {
+    await page.goto("/")
+  })
+
+  test("renders the eyebrow and tagline", async ({ page }) => {
+    const section = page.locator("#about")
+    await expect(section.getByText(enAbout.eyebrow)).toBeVisible()
+    await expect(section.getByText(enAbout.tagline)).toBeVisible()
   })
 })
 
@@ -133,6 +184,134 @@ test.describe("Home page — stack section", () => {
       .locator("#stack > ul > li")
       .filter({ hasText: "FOUNDATION" })
     await expect(foundation.locator("code")).toHaveText("any")
+  })
+})
+
+test.describe("Home page — faq section", () => {
+  test.beforeEach(async ({ page }) => {
+    await page.goto("/")
+  })
+
+  test("renders the faq eyebrow and tagline", async ({ page }) => {
+    const section = page.locator("#faq")
+    await expect(section.getByText(enFaq.eyebrow)).toBeVisible()
+    await expect(section.getByText(enFaq.tagline)).toBeVisible()
+  })
+
+  test("renders one trigger per faq item", async ({ page }) => {
+    const triggers = page.locator("#faq").getByRole("button")
+    await expect(triggers).toHaveCount(FAQ_ITEMS.length)
+  })
+
+  test("each trigger starts collapsed", async ({ page }) => {
+    for (const { id } of FAQ_ITEMS) {
+      const item = enFaq.items[id]
+      const trigger = page
+        .locator("#faq")
+        .getByRole("button", { name: item.question })
+      await expect(trigger).toHaveAttribute("aria-expanded", "false")
+    }
+  })
+
+  test("clicking a trigger reveals its answer", async ({ page }) => {
+    const { id } = FAQ_ITEMS[0]
+    const item = enFaq.items[id]
+    const trigger = page
+      .locator("#faq")
+      .getByRole("button", { name: item.question })
+
+    await trigger.click()
+    await expect(trigger).toHaveAttribute("aria-expanded", "true")
+    await expect(page.locator("#faq").getByText(item.answer)).toBeVisible()
+  })
+})
+
+test.describe("Home page — contact section", () => {
+  test.beforeEach(async ({ page }) => {
+    await page.goto("/")
+  })
+
+  test("renders the eyebrow and tagline", async ({ page }) => {
+    const section = page.locator("#contact")
+    await expect(
+      section.getByText(enContact.eyebrow, { exact: true })
+    ).toBeVisible()
+    await expect(section.getByText(enContact.tagline)).toBeVisible()
+  })
+
+  test("renders the hello@ email pill linking to mailto", async ({ page }) => {
+    const section = page.locator("#contact")
+    const emailLink = section
+      .getByRole("link", { name: /hello@axda-studio\.fr/i })
+      .first()
+    await expect(emailLink).toHaveAttribute(
+      "href",
+      "mailto:hello@axda-studio.fr"
+    )
+  })
+})
+
+test.describe("Home page — contact section (mobile only)", () => {
+  // The brief form and Elsewhere grid are rendered only at < lg breakpoint;
+  // the desktop dark card surfaces the same info via the metadata footer
+  // and the inline cal/GitHub/LinkedIn quick links.
+  test.use({ viewport: { width: 375, height: 800 } })
+
+  test.beforeEach(async ({ page }) => {
+    await page.goto("/")
+  })
+
+  test("renders the brief form with three labelled controls", async ({
+    page,
+  }) => {
+    const section = page.locator("#contact")
+    await expect(section.getByText(enContact.form.eyebrow)).toBeVisible()
+    await expect(section.getByLabel(enContact.form.nameLabel)).toBeVisible()
+    await expect(section.getByLabel(enContact.form.emailLabel)).toBeVisible()
+    await expect(section.getByLabel(enContact.form.briefLabel)).toBeVisible()
+    await expect(
+      section.getByRole("button", { name: enContact.form.submitLabel })
+    ).toBeVisible()
+  })
+
+  test("renders the elsewhere grid with four external links", async ({
+    page,
+  }) => {
+    const section = page.locator("#contact")
+    await expect(section.getByText(enContact.elsewhere.eyebrow)).toBeVisible()
+
+    const expected = [
+      {
+        label: enContact.elsewhere.items.github.label,
+        value: enContact.elsewhere.items.github.value,
+        href: "https://github.com/axda-studio",
+      },
+      {
+        label: enContact.elsewhere.items.linkedin.label,
+        value: enContact.elsewhere.items.linkedin.value,
+        href: "https://www.linkedin.com/in/alyx-darenne",
+      },
+      {
+        label: enContact.elsewhere.items.cal.label,
+        value: enContact.elsewhere.items.cal.value,
+        href: "https://calendar.app.google/VEmfweYv5o8gjiva6",
+      },
+      {
+        label: enContact.elsewhere.items.email.label,
+        value: enContact.elsewhere.items.email.value,
+        href: "mailto:hello@axda-studio.fr",
+      },
+    ]
+
+    for (const { label, value, href } of expected) {
+      // Match by combined label + value so the elsewhere card link
+      // (accessible name "LABEL value") doesn't collide with the dark
+      // card's email pill (accessible name is just the email).
+      const link = section.getByRole("link", {
+        name: new RegExp(`${label}.*${value.replace(/\./g, "\\.")}`),
+      })
+      await expect(link).toHaveAttribute("href", href)
+    }
   })
 })
 

@@ -2,6 +2,8 @@ import { DesktopNav } from "@/components/nav"
 import { MobileNav } from "@/components/nav"
 import { ReactNode } from "react"
 import { Logo } from "@/components/logo"
+import { Footer } from "@/components/footer"
+import { AvailabilityBadge } from "@/components/availability-badge"
 import { getScopedI18n } from "@/locales/server"
 
 export default async function MainLayout({
@@ -16,12 +18,10 @@ export default async function MainLayout({
       <DesktopNav />
       <header className="flex items-center justify-between lg:hidden">
         <Logo variant="mobile" />
-        <div className="flex items-center gap-x-2 rounded-full border px-2 py-0.5 font-mono text-tiny uppercase shadow-md">
-          <span className="size-1.5 animate-pulse rounded-full bg-green-700" />
-          {t("availability.mobile")}
-        </div>
+        <AvailabilityBadge>{t("availability.mobile")}</AvailabilityBadge>
       </header>
       {children}
+      <Footer />
       <MobileNav />
     </div>
   )
