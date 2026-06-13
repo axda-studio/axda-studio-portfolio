@@ -24,7 +24,7 @@ export function PillarCard({
   const [before, after] = title.template.split("{emphasis}")
 
   return (
-    <Card className="flex h-full flex-col shadow-lg">
+    <Card className="flex h-full flex-col">
       <CardHeader className="space-y-2">
         <span className="font-mono text-tiny text-gray-600">
           {String(id).padStart(2, "0")} — {label}

@@ -10,7 +10,7 @@ export default {
   },
   intro: {
     template:
-      "Soy Axda Studio — una práctica frontend en solitario. Cinco años entregando productos {first} y {second} de extremo a extremo: tipados, probados, accesibles, instrumentados y posicionados. Combino ese oficio con un dominio profundo de {third} — ahorrando semanas en descubrimiento, scaffolding, refactorizaciones y cobertura de tests, sin renunciar a la calidad.",
+      "Soy Axda Studio — una práctica frontend en solitario. Cinco años+ entregando productos {first} y {second} de extremo a extremo: tipados, probados, accesibles, instrumentados y posicionados. Combino ese oficio con un dominio profundo de {third} — ahorrando semanas en descubrimiento, scaffolding, refactorizaciones y cobertura de tests, sin renunciar a la calidad.",
     first: "web (Next.js)",
     second: "móviles (Expo)",
     third: "Claude Code",

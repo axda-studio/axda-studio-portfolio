@@ -10,9 +10,9 @@ export async function MobileNav() {
   return (
     <nav
       aria-label="mobile"
-      className="fixed inset-x-0 bottom-4 mx-4 rounded-full border bg-popover/70 px-3 text-sm backdrop-blur-md lg:hidden"
+      className="fixed inset-x-0 bottom-4 mx-4 rounded-full border bg-popover/70 text-sm backdrop-blur-md lg:hidden"
     >
-      <ul className="flex items-center justify-evenly gap-2">
+      <ul className="flex items-center justify-evenly">
         {MOBILE_NAV_ITEMS.map(({ icon: Icon, ...navItem }) => (
           <li
             key={navItem.id}

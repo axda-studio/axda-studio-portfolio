@@ -1,4 +1,4 @@
 export default {
   copyright: "Axda Studio®",
-  builtWith: "Built with Next.js · Motion · 100% tested",
+  builtWith: "Pixels with a backbone.",
 } as const
