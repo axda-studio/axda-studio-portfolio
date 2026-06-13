@@ -21,7 +21,7 @@ export function StackCard({ label, title, description }: StackCardProps) {
     : [description.template.replace("{code}", ""), ""]
 
   return (
-    <Card className="flex h-full flex-col shadow-lg">
+    <Card className="flex h-full flex-col">
       <CardHeader className="space-y-3">
         <span className="font-mono text-tiny tracking-wider text-gray-600 uppercase">
           {label}

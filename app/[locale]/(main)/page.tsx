@@ -5,16 +5,22 @@ import Link from "next/link"
 import { CLAUDE_CODE_URL, WORK_URL } from "@/components/nav/nav"
 import { PillarCard } from "@/components/pillar-card"
 import { PILLARS } from "@/components/pillar-card/constants"
+import { WorkCard } from "@/components/work-card"
+import { SELECTED_WORK_ITEMS } from "@/components/work-card/constants"
 import { StackCard } from "@/components/stack-card"
 import { STACK_ITEMS } from "@/components/stack-card/constants"
 import { FaqList } from "@/components/faq"
 import { FAQ_ITEMS } from "@/components/faq/constants"
 import { AvailabilityBadge } from "@/components/availability-badge"
 import { SectionHeader } from "@/components/section-header"
+import { ClaudeCodeCard } from "@/components/claude-code"
+import { CLAUDE_CODE_STEPS } from "@/components/claude-code/constants"
+import { AboutCard } from "@/components/about"
+import { ABOUT_FACT_KEYS } from "@/components/about/constants"
 import {
   ContactCard,
   ContactElsewhere,
-  ContactForm,
+  // ContactForm,
 } from "@/components/contact"
 
 export default async function HomePage() {
@@ -106,10 +112,34 @@ export default async function HomePage() {
           ))}
         </ul>
       </TrackedSection>
-      <TrackedSection section="work" id="work" className="">
+      <TrackedSection section="work" id="work" className="space-y-6">
         <SectionHeader meta={tWork("tagline")}>
           {tWork("eyebrow")}
         </SectionHeader>
+        <ul className="space-y-6">
+          {SELECTED_WORK_ITEMS.map(({ id, image, liveUrl, metricIds }) => (
+            <li key={id}>
+              <WorkCard
+                featuredLabel={tWork("featuredLabel")}
+                year={tWork(`items.${id}.year`)}
+                tech={tWork(`items.${id}.tech`)}
+                image={{ src: image.src, alt: tWork(`items.${id}.imageAlt`) }}
+                title={{
+                  prefix: tWork(`items.${id}.title.prefix`),
+                  emphasis: tWork(`items.${id}.title.emphasis`),
+                }}
+                tags={tWork(`items.${id}.tags`)}
+                description={tWork(`items.${id}.description`)}
+                liveUrl={liveUrl}
+                liveLabel={tWork("liveLabel")}
+                metrics={metricIds.map((mid) => ({
+                  value: tWork(`items.${id}.metrics.${mid}.value`),
+                  label: tWork(`items.${id}.metrics.${mid}.label`),
+                }))}
+              />
+            </li>
+          ))}
+        </ul>
       </TrackedSection>
       <TrackedSection section="stack" id="stack" className="space-y-6">
         <SectionHeader meta={tStack("tagline")}>
@@ -130,15 +160,87 @@ export default async function HomePage() {
           ))}
         </ul>
       </TrackedSection>
-      <TrackedSection section="claude-code" id="claude-code" className="">
+      <TrackedSection
+        section="claude-code"
+        id="claude-code"
+        className="space-y-6"
+      >
         <SectionHeader meta={tClaudeCode("tagline")}>
           {tClaudeCode("eyebrow")}
         </SectionHeader>
+        <ClaudeCodeCard
+          title={{
+            line1: tClaudeCode("card.title.line1"),
+            line2: tClaudeCode("card.title.line2"),
+          }}
+          description={tClaudeCode("card.description")}
+          steps={CLAUDE_CODE_STEPS.map(({ id }) => ({
+            id,
+            label: tClaudeCode(`card.steps.${id}.label`),
+            meta: tClaudeCode(`card.steps.${id}.meta`),
+          }))}
+          foundations={{
+            tooling: {
+              label: tClaudeCode("card.foundations.tooling.label"),
+              primary: tClaudeCode("card.foundations.tooling.primary"),
+              suffix: tClaudeCode("card.foundations.tooling.suffix"),
+            },
+            guardrails: {
+              label: tClaudeCode("card.foundations.guardrails.label"),
+              primary: tClaudeCode("card.foundations.guardrails.primary"),
+              suffix: tClaudeCode("card.foundations.guardrails.suffix"),
+            },
+            lift: {
+              label: tClaudeCode("card.foundations.lift.label"),
+              emphasis: tClaudeCode("card.foundations.lift.emphasis"),
+              text: tClaudeCode("card.foundations.lift.text"),
+            },
+          }}
+          never={{
+            label: tClaudeCode("card.never.label"),
+            text: tClaudeCode("card.never.text"),
+          }}
+        />
       </TrackedSection>
-      <TrackedSection section="about" id="about" className="">
+      <TrackedSection section="about" id="about" className="space-y-6">
         <SectionHeader meta={tAbout("tagline")}>
           {tAbout("eyebrow")}
         </SectionHeader>
+        <AboutCard
+          title={tAbout("card.title")}
+          paragraph1={tAbout("card.paragraph1")}
+          paragraph2={tAbout("card.paragraph2.template", {
+            city1: (
+              <span className="font-serif italic">
+                {tAbout("card.paragraph2.city1")}
+              </span>
+            ),
+            city2: (
+              <span className="font-serif italic">
+                {tAbout("card.paragraph2.city2")}
+              </span>
+            ),
+          })}
+          paragraph3={tAbout("card.paragraph3.template", {
+            emphasis: (
+              <span className="font-serif italic">
+                {tAbout("card.paragraph3.emphasis")}
+              </span>
+            ),
+          })}
+          facts={ABOUT_FACT_KEYS.map((key) => ({
+            key,
+            label: tAbout(`card.facts.${key}.label`),
+            primary: tAbout(`card.facts.${key}.primary`),
+            suffix: tAbout(`card.facts.${key}.suffix`),
+          }))}
+          signature={{
+            firstName: tAbout("card.signature.firstName"),
+            lastName: tAbout("card.signature.lastName"),
+            role: tAbout("card.signature.role"),
+            available: tAbout("card.signature.available"),
+          }}
+        />
       </TrackedSection>
       <TrackedSection section="faq" id="faq" className="space-y-6">
         <SectionHeader meta={tFaq("tagline")}>{tFaq("eyebrow")}</SectionHeader>
@@ -186,7 +288,7 @@ export default async function HomePage() {
           }}
         />
 
-        <div className="space-y-4 lg:hidden">
+        {/* <div className="space-y-4 lg:hidden">
           <SectionHeader>{tContact("form.eyebrow")}</SectionHeader>
           <ContactForm
             labels={{
@@ -200,7 +302,7 @@ export default async function HomePage() {
               mailSubject: tContact("form.mailSubject"),
             }}
           />
-        </div>
+        </div> */}
 
         <div className="space-y-4 lg:hidden">
           <SectionHeader>{tContact("elsewhere.eyebrow")}</SectionHeader>

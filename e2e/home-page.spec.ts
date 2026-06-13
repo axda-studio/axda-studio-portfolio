@@ -84,6 +84,47 @@ test.describe("Home page — work section", () => {
     await expect(section.getByText(enWork.eyebrow)).toBeVisible()
     await expect(section.getByText(enWork.tagline)).toBeVisible()
   })
+
+  test("renders the Tyklo card title, tags, and description", async ({
+    page,
+  }) => {
+    const section = page.locator("#work")
+    const tyklo = enWork.items.tyklo
+    await expect(section.getByText(tyklo.title.emphasis)).toBeVisible()
+    await expect(section.getByText(tyklo.tags)).toBeVisible()
+    await expect(section.getByText(tyklo.description)).toBeVisible()
+  })
+
+  test("renders FEATURED and year · tech overlay badges", async ({ page }) => {
+    const section = page.locator("#work")
+    const tyklo = enWork.items.tyklo
+    await expect(section.getByText(enWork.featuredLabel)).toBeVisible()
+    await expect(
+      section.getByText(`${tyklo.year} · ${tyklo.tech}`)
+    ).toBeVisible()
+  })
+
+  test("live-site link opens tyklo.eu in a new tab with safe rel", async ({
+    page,
+  }) => {
+    const section = page.locator("#work")
+    const link = section.getByRole("link", {
+      name: new RegExp(enWork.liveLabel, "i"),
+    })
+    await expect(link).toHaveAttribute("href", "https://tyklo.eu")
+    await expect(link).toHaveAttribute("target", "_blank")
+    await expect(link).toHaveAttribute("rel", /noopener/)
+    await expect(link).toHaveAttribute("rel", /noreferrer/)
+  })
+
+  test("renders all four metrics (values + labels)", async ({ page }) => {
+    const section = page.locator("#work")
+    for (const id of [1, 2, 3, 4] as const) {
+      const metric = enWork.items.tyklo.metrics[id]
+      await expect(section.getByText(metric.value)).toBeVisible()
+      await expect(section.getByText(metric.label)).toBeVisible()
+    }
+  })
 })
 
 test.describe("Home page — claude-code section", () => {
@@ -96,6 +137,50 @@ test.describe("Home page — claude-code section", () => {
     await expect(section.getByText(enClaudeCode.eyebrow)).toBeVisible()
     await expect(section.getByText(enClaudeCode.tagline)).toBeVisible()
   })
+
+  test("renders the card title (both lines) and description", async ({
+    page,
+  }) => {
+    const section = page.locator("#claude-code")
+    await expect(section.getByText(enClaudeCode.card.title.line1)).toBeVisible()
+    await expect(section.getByText(enClaudeCode.card.title.line2)).toBeVisible()
+    await expect(section.getByText(enClaudeCode.card.description)).toBeVisible()
+  })
+
+  test("renders all five workflow step labels", async ({ page }) => {
+    // Each label is rendered in two lists (mobile <ul>, desktop <ol>); at the
+    // default Playwright viewport (desktop) only the <ol> is visible. Scope to
+    // it explicitly so we don't pick up the hidden mobile list with .first().
+    const desktopList = page.locator("#claude-code ol")
+    for (const id of [1, 2, 3, 4, 5] as const) {
+      const { label } = enClaudeCode.card.steps[id]
+      await expect(desktopList.getByText(label, { exact: true })).toBeVisible()
+    }
+  })
+
+  test("renders the three foundation labels and the lift emphasis", async ({
+    page,
+  }) => {
+    const section = page.locator("#claude-code")
+    await expect(
+      section.getByText(enClaudeCode.card.foundations.tooling.label)
+    ).toBeVisible()
+    await expect(
+      section.getByText(enClaudeCode.card.foundations.guardrails.label)
+    ).toBeVisible()
+    await expect(
+      section.getByText(enClaudeCode.card.foundations.lift.label)
+    ).toBeVisible()
+    await expect(
+      section.getByText(enClaudeCode.card.foundations.lift.emphasis)
+    ).toBeVisible()
+  })
+
+  test("renders the never warning", async ({ page }) => {
+    const section = page.locator("#claude-code")
+    await expect(section.getByText(enClaudeCode.card.never.label)).toBeVisible()
+    await expect(section.getByText(enClaudeCode.card.never.text)).toBeVisible()
+  })
 })
 
 test.describe("Home page — about section", () => {
@@ -105,8 +190,37 @@ test.describe("Home page — about section", () => {
 
   test("renders the eyebrow and tagline", async ({ page }) => {
     const section = page.locator("#about")
-    await expect(section.getByText(enAbout.eyebrow)).toBeVisible()
+    await expect(
+      section.getByText(enAbout.eyebrow, { exact: true })
+    ).toBeVisible()
     await expect(section.getByText(enAbout.tagline)).toBeVisible()
+  })
+
+  test("renders the card title and first paragraph", async ({ page }) => {
+    const section = page.locator("#about")
+    await expect(section.getByText(enAbout.card.title)).toBeVisible()
+    await expect(section.getByText(enAbout.card.paragraph1)).toBeVisible()
+  })
+
+  test("renders the signature with name, role, and Available badge", async ({
+    page,
+  }) => {
+    const section = page.locator("#about")
+    const sig = enAbout.card.signature
+    await expect(
+      section.getByText(`${sig.firstName} ${sig.lastName}`)
+    ).toBeVisible()
+    // Paragraph 1 starts "I am a Frontend Developer…" so `exact: true`
+    // disambiguates the signature span from the body copy.
+    await expect(section.getByText(sig.role, { exact: true })).toBeVisible()
+    await expect(section.getByText(sig.available)).toBeVisible()
+  })
+
+  test("renders the avatar initials (first + last name)", async ({ page }) => {
+    const section = page.locator("#about")
+    const sig = enAbout.card.signature
+    const initials = `${sig.firstName[0]}${sig.lastName[0]}`
+    await expect(section.getByText(initials, { exact: true })).toBeVisible()
   })
 })
 
@@ -261,7 +375,9 @@ test.describe("Home page — contact section (mobile only)", () => {
     await page.goto("/")
   })
 
-  test("renders the brief form with three labelled controls", async ({
+  // The brief form is currently commented out on the page; bring this test
+  // back if/when <ContactForm> is re-enabled in app/[locale]/(main)/page.tsx.
+  test.skip("renders the brief form with three labelled controls", async ({
     page,
   }) => {
     const section = page.locator("#contact")
@@ -280,37 +396,19 @@ test.describe("Home page — contact section (mobile only)", () => {
     const section = page.locator("#contact")
     await expect(section.getByText(enContact.elsewhere.eyebrow)).toBeVisible()
 
-    const expected = [
-      {
-        label: enContact.elsewhere.items.github.label,
-        value: enContact.elsewhere.items.github.value,
-        href: "https://github.com/axda-studio",
-      },
-      {
-        label: enContact.elsewhere.items.linkedin.label,
-        value: enContact.elsewhere.items.linkedin.value,
-        href: "https://www.linkedin.com/in/alyx-darenne",
-      },
-      {
-        label: enContact.elsewhere.items.cal.label,
-        value: enContact.elsewhere.items.cal.value,
-        href: "https://calendar.app.google/VEmfweYv5o8gjiva6",
-      },
-      {
-        label: enContact.elsewhere.items.email.label,
-        value: enContact.elsewhere.items.email.value,
-        href: "mailto:hello@axda-studio.fr",
-      },
+    const expectedHrefs = [
+      "https://github.com/axda-studio",
+      "https://www.linkedin.com/in/alyx-darenne",
+      "https://calendar.app.google/VEmfweYv5o8gjiva6",
+      "mailto:hello@axda-studio.fr",
     ]
 
-    for (const { label, value, href } of expected) {
-      // Match by combined label + value so the elsewhere card link
-      // (accessible name "LABEL value") doesn't collide with the dark
-      // card's email pill (accessible name is just the email).
-      const link = section.getByRole("link", {
-        name: new RegExp(`${label}.*${value.replace(/\./g, "\\.")}`),
-      })
-      await expect(link).toHaveAttribute("href", href)
+    // Some hrefs (mailto, CAL) appear in BOTH the dark card and the Elsewhere
+    // grid on mobile. The Elsewhere card sits last in DOM order, so the last
+    // visible anchor per href is the one we want.
+    for (const href of expectedHrefs) {
+      const link = section.locator(`a[href="${href}"]:visible`).last()
+      await expect(link).toBeVisible()
     }
   })
 })

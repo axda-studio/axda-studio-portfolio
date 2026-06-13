@@ -11,7 +11,7 @@ export default {
   },
   intro: {
     template:
-      "Je suis Axda Studio — un cabinet frontend solo. Cinq ans à livrer des produits {first} et {second} de bout en bout : typés, testés, accessibles, instrumentés et référencés. J’associe ce savoir-faire à une maîtrise approfondie de {third} — économisant des semaines sur la découverte, le scaffolding, les refactorisations et la couverture de tests, sans rogner sur la qualité.",
+      "Je suis Axda Studio — un cabinet frontend solo. Cinq ans+ à livrer des produits {first} et {second} de bout en bout : typés, testés, accessibles, instrumentés et référencés. J’associe ce savoir-faire à une maîtrise approfondie de {third} — économisant des semaines sur la découverte, le scaffolding, les refactorisations et la couverture de tests, sans rogner sur la qualité.",
     first: "web (Next.js)",
     second: "mobiles (Expo)",
     third: "Claude Code",

@@ -10,7 +10,7 @@ export default {
   },
   intro: {
     template:
-      "Hi, I’m at Axda Studio — a one-person frontend practice. Five years shipping {first} and {second} products end-to-end: typed, tested, accessible, instrumented, and ranked. I pair that craft with deep {third} fluency — cutting weeks off discovery, scaffolding, refactors and test coverage, without cutting corners on quality.",
+      "Hi, I’m at Axda Studio — a one-person frontend practice. Five years+ shipping {first} and {second} products end-to-end: typed, tested, accessible, instrumented, and ranked. I pair that craft with deep {third} fluency — cutting weeks off discovery, scaffolding, refactors and test coverage, without cutting corners on quality.",
     first: "web (Next.js)",
     second: "mobile (Expo)",
     third: "Claude Code",
