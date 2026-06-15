@@ -41,15 +41,17 @@ export function ClaudeCodeCard({
 }: ClaudeCodeCardProps) {
   return (
     <div className="relative space-y-8 rounded-3xl bg-card p-6 ring-1 ring-foreground/10 lg:space-y-10 lg:p-12">
-      <ClaudeLogo
-        aria-hidden="true"
-        className="absolute top-8 right-8 size-10 text-primary opacity-70 lg:top-14 lg:right-12 lg:size-20"
-      />
-      <h3 className="max-w-4/5 font-serif text-3xl leading-tight font-medium italic lg:text-5xl">
-        <span className="">{title.line1}</span>
-        {""}
-        <span className="text-primary">{title.line2}</span>
-      </h3>
+      <div className="flex justify-between lg:items-center">
+        <h3 className="max-w-4/5 font-serif text-3xl leading-tight font-medium italic lg:text-5xl">
+          <span className="">{title.line1}</span>
+          {""}
+          <span className="text-primary">{title.line2}</span>
+        </h3>
+        <ClaudeLogo
+          aria-hidden="true"
+          className="size-10 text-primary opacity-70"
+        />
+      </div>
 
       <p className="max-w-xl text-sm lg:text-base">{description}</p>
 

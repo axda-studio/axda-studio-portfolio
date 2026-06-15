@@ -1,5 +1,5 @@
 import { getScopedI18n } from "@/locales/server"
-import { Hero3D, HeroCtas } from "@/components/hero"
+import { Hero3D, HeroCtas, WovenLightHero } from "@/components/hero"
 import { TrackedSection } from "@/components/section-tracker"
 import Link from "next/link"
 import { CLAUDE_CODE_URL, WORK_URL } from "@/components/nav/nav"
@@ -40,12 +40,13 @@ export default async function HomePage() {
         id="hero"
         className="relative isolate space-y-4 overflow-hidden lg:space-y-8"
       >
-        <Hero3D />
-        <AvailabilityBadge className="hidden text-xs shadow-lg lg:flex">
+        {/* <WovenLightHero /> */}
+        <AvailabilityBadge className="hidden text-xs lg:flex">
           {t("availability.desktop")}
         </AvailabilityBadge>
-        <h1 className="text-3xl font-bold lg:text-8xl">
+        <h1 className="text-3xl font-bold lg:text-7xl">
           {t("title.template", {
+            br: <br className="hidden lg:inline" />,
             first: (
               <span className="font-serif font-medium text-primary">
                 {t("title.first")}
@@ -207,7 +208,18 @@ export default async function HomePage() {
           {tAbout("eyebrow")}
         </SectionHeader>
         <AboutCard
-          title={tAbout("card.title")}
+          title={tAbout("card.title.template", {
+            engineer: (
+              <span className="text-primary">
+                {tAbout("card.title.engineer")}
+              </span>
+            ),
+            designer: (
+              <span className="text-primary">
+                {tAbout("card.title.designer")}
+              </span>
+            ),
+          })}
           paragraph1={tAbout("card.paragraph1")}
           paragraph2={tAbout("card.paragraph2.template", {
             city1: (
@@ -228,6 +240,7 @@ export default async function HomePage() {
               </span>
             ),
           })}
+          paragraph4={tAbout("card.paragraph4")}
           facts={ABOUT_FACT_KEYS.map((key) => ({
             key,
             label: tAbout(`card.facts.${key}.label`),

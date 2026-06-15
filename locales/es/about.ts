@@ -2,7 +2,11 @@ export default {
   eyebrow: "Sobre mí",
   tagline: "Estudio en solitario",
   card: {
-    title: "Ingeniero, con ojo de diseñador.",
+    title: {
+      template: "{engineer}, con ojo de {designer}.",
+      engineer: "Ingeniero",
+      designer: "diseñador",
+    },
     paragraph1:
       "Soy Frontend Developer con cinco años+ dedicados a construir experiencias digitales que priorizan rendimiento, escalabilidad y excelencia visual.",
     paragraph2: {
@@ -16,6 +20,8 @@ export default {
         "Me importan las cosas aburridas — tipos, tests, accesibilidad, presupuestos de rendimiento, analytics desde el día uno — porque son las que hacen que lo bello {emphasis} de verdad.",
       emphasis: "perdure",
     },
+    paragraph4:
+      "Más allá del desarrollo, me apoyo en una valiosa experiencia en Psicología, Marketing y Diseño, lo que me permite abordar los proyectos de manera holística y entregar soluciones que verdaderamente resuenan.",
     facts: {
       now: {
         label: "Ahora",

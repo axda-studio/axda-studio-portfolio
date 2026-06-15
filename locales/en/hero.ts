@@ -4,7 +4,8 @@ export default {
     desktop: "Available for new roles — Q1’27",
   },
   title: {
-    template: "Frontend engineer building {first}, {second} interfaces.",
+    template:
+      "Frontend engineer{br}building{br}{first}, {second}{br}interfaces.",
     first: "beautiful",
     second: "resilient",
   },
