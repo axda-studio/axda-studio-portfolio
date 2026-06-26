@@ -1,8 +1,5 @@
 import { getScopedI18n } from "@/locales/server"
-import { Hero3D, HeroCtas, WovenLightHero } from "@/components/hero"
 import { TrackedSection } from "@/components/section-tracker"
-import Link from "next/link"
-import { CLAUDE_CODE_URL, WORK_URL } from "@/components/nav/nav"
 import { PillarCard } from "@/components/pillar-card"
 import { PILLARS } from "@/components/pillar-card/constants"
 import { WorkCard } from "@/components/work-card"
@@ -11,7 +8,6 @@ import { StackCard } from "@/components/stack-card"
 import { STACK_ITEMS } from "@/components/stack-card/constants"
 import { FaqList } from "@/components/faq"
 import { FAQ_ITEMS } from "@/components/faq/constants"
-import { AvailabilityBadge } from "@/components/availability-badge"
 import { SectionHeader } from "@/components/section-header"
 import { ClaudeCodeCard } from "@/components/claude-code"
 import { CLAUDE_CODE_STEPS } from "@/components/claude-code/constants"
@@ -24,7 +20,6 @@ import {
 } from "@/components/contact"
 
 export default async function HomePage() {
-  const t = await getScopedI18n("hero")
   const tPillars = await getScopedI18n("pillars")
   const tStack = await getScopedI18n("stack")
   const tFaq = await getScopedI18n("faq")
@@ -34,64 +29,7 @@ export default async function HomePage() {
   const tAbout = await getScopedI18n("about")
 
   return (
-    <div className="mt-8 space-y-12 lg:mt-32 lg:space-y-24">
-      <TrackedSection
-        section="hero"
-        id="hero"
-        className="relative isolate space-y-4 overflow-hidden lg:space-y-8"
-      >
-        {/* <WovenLightHero /> */}
-        <AvailabilityBadge className="hidden text-xs lg:flex">
-          {t("availability.desktop")}
-        </AvailabilityBadge>
-        <h1 className="text-3xl font-bold lg:text-7xl">
-          {t("title.template", {
-            br: <br className="hidden lg:inline" />,
-            first: (
-              <span className="font-serif font-medium text-primary">
-                {t("title.first")}
-              </span>
-            ),
-            second: (
-              <span className="font-serif font-medium text-primary">
-                {t("title.second")}
-              </span>
-            ),
-          })}
-        </h1>
-        <p className="max-w-160 text-sm lg:text-lg">
-          {t("intro.template", {
-            first: (
-              <Link
-                href={WORK_URL}
-                className="underline decoration-gray-300 underline-offset-4 transition-colors hover:text-primary hover:decoration-primary"
-              >
-                {t("intro.first")}
-              </Link>
-            ),
-            second: (
-              <Link
-                href={WORK_URL}
-                className="underline decoration-gray-300 underline-offset-4 transition-colors hover:text-primary hover:decoration-primary"
-              >
-                {t("intro.second")}
-              </Link>
-            ),
-            third: (
-              <Link
-                href={CLAUDE_CODE_URL}
-                className="underline decoration-gray-300 underline-offset-4 transition-colors hover:text-primary hover:decoration-primary"
-              >
-                {t("intro.third")}
-              </Link>
-            ),
-          })}
-        </p>
-        <HeroCtas
-          primaryLabel={t("ctaPrimary")}
-          secondaryLabel={t("ctaSecondary")}
-        />
-      </TrackedSection>
+    <div className="mx-auto max-w-6xl space-y-12 px-4 lg:space-y-24">
       <TrackedSection section="pillars" id="pillars" className="space-y-6">
         <SectionHeader meta={tPillars("counter")}>
           {tPillars("eyebrow")}
@@ -170,11 +108,19 @@ export default async function HomePage() {
           {tClaudeCode("eyebrow")}
         </SectionHeader>
         <ClaudeCodeCard
+          eyebrow={tClaudeCode("card.eyebrow")}
           title={{
             line1: tClaudeCode("card.title.line1"),
             line2: tClaudeCode("card.title.line2"),
           }}
-          description={tClaudeCode("card.description")}
+          description={tClaudeCode("card.description.template", {
+            emphasis: (
+              <strong className="font-semibold text-foreground">
+                {tClaudeCode("card.description.emphasis")}
+              </strong>
+            ),
+          })}
+          stepsLabel={tClaudeCode("card.stepsLabel")}
           steps={CLAUDE_CODE_STEPS.map(({ id }) => ({
             id,
             label: tClaudeCode(`card.steps.${id}.label`),
@@ -212,11 +158,6 @@ export default async function HomePage() {
             engineer: (
               <span className="text-primary">
                 {tAbout("card.title.engineer")}
-              </span>
-            ),
-            designer: (
-              <span className="text-primary">
-                {tAbout("card.title.designer")}
               </span>
             ),
           })}

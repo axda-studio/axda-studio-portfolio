@@ -4,9 +4,12 @@ export default {
     desktop: "Disponible para nuevos roles — T1 2027",
   },
   title: {
-    template: "Ingeniero frontend que construye interfaces {first} y {second}.",
-    first: "bellas",
-    second: "resilientes",
+    headline: {
+      prefix: "Hermosa",
+      emphasis: "UI",
+    },
+    line2: "diseñada para durar,",
+    line3: "optimizada para crecer.",
   },
   intro: {
     template:

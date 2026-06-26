@@ -1,130 +1,51 @@
 "use client"
 
-import React, { useRef, useEffect } from "react"
-import { motion, useAnimation } from "motion/react"
+import { useRef, useEffect } from "react"
 import * as THREE from "three"
 
-// --- Main Hero Component ---
+import { useScopedI18n } from "@/locales/client"
+import { HeroCtas } from "@/components/hero"
+import { TrackedSection } from "@/components/section-tracker"
+
 export const WovenLightHero = () => {
-  const textControls = useAnimation()
-  const buttonControls = useAnimation()
-
-  useEffect(() => {
-    // Add a more elegant font
-    const link = document.createElement("link")
-    link.href =
-      "https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400&display=swap"
-    link.rel = "stylesheet"
-    document.head.appendChild(link)
-
-    textControls.start((i) => ({
-      opacity: 1,
-      y: 0,
-      transition: {
-        delay: i * 0.1 + 1.5,
-        duration: 1.2,
-        ease: [0.2, 0.65, 0.3, 0.9],
-      },
-    }))
-    buttonControls.start({
-      opacity: 1,
-      transition: { delay: 2.5, duration: 1 },
-    })
-
-    return () => {
-      document.head.removeChild(link)
-    }
-  }, [textControls, buttonControls])
-
-  const headline = "Woven by Light"
+  const t = useScopedI18n("hero")
 
   return (
-    <div className="relative flex h-screen w-full flex-col items-center justify-center bg-black dark:bg-white">
-      <WovenCanvas />
-      <HeroNav />
-      <div className="relative z-10 px-4 text-center">
-        <h1
-          className="text-6xl text-white md:text-8xl dark:text-slate-900"
-          style={{
-            fontFamily: "'Playfair Display', serif",
-            textShadow: "0 0 50px rgba(255, 255, 255, 0.3)",
-          }}
-        >
-          {headline.split(" ").map((word, i) => (
-            <span key={i} className="inline-block">
-              {word.split("").map((char, j) => (
-                <motion.span
-                  key={j}
-                  custom={i * 5 + j}
-                  initial={{ opacity: 0, y: 50 }}
-                  animate={textControls}
-                  style={{ display: "inline-block" }}
-                >
-                  {char}
-                </motion.span>
-              ))}
-              {i < headline.split(" ").length - 1 && <span>&nbsp;</span>}
-            </span>
-          ))}
-        </h1>
-        <motion.p
-          custom={headline.length}
-          initial={{ opacity: 0, y: 30 }}
-          animate={textControls}
-          className="mx-auto mt-6 max-w-xl text-lg text-slate-300 dark:text-slate-600"
-          style={{ fontFamily: "'Inter', sans-serif" }}
-        >
-          An interactive tapestry of light and motion, crafted with code and
-          creativity.
-        </motion.p>
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={buttonControls}
-          className="mt-10"
-        >
-          <button
-            className="rounded-full border-2 border-white/20 bg-white/10 px-8 py-3 font-semibold text-white backdrop-blur-sm transition-all hover:bg-white/20 dark:border-slate-800/20 dark:bg-slate-800/5 dark:text-slate-800 dark:hover:bg-slate-800/10"
-            style={{ fontFamily: "'Inter', sans-serif" }}
-          >
-            Explore the Weave
-          </button>
-        </motion.div>
-      </div>
-    </div>
-  )
-}
-
-// --- Navigation Component ---
-const HeroNav = () => {
-  return (
-    <motion.nav
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1, transition: { delay: 1, duration: 1 } }}
-      className="absolute top-0 right-0 left-0 z-20 p-6"
+    <TrackedSection
+      section="hero"
+      id="hero"
+      className="relative flex h-screen w-full flex-col items-center justify-center"
     >
-      <div className="mx-auto flex max-w-7xl items-center justify-between">
-        <div className="flex items-center gap-2">
-          <span className="text-2xl font-bold text-white dark:text-slate-800">
-            ⎎
+      <WovenCanvas />
+      <div className="relative z-10 flex flex-col gap-y-8 px-4 text-center sm:gap-y-10 md:gap-y-12 lg:gap-y-16">
+        <h1 className="font-serif text-xl leading-tight font-normal sm:text-2xl md:text-4xl lg:text-6xl">
+          <span className="font-sans text-4xl font-bold sm:text-5xl md:text-6xl lg:text-8xl">
+            {t("title.headline.prefix")}{" "}
+            <span className="font-black text-primary">
+              {t("title.headline.emphasis")}
+            </span>
           </span>
-          <span
-            className="text-xl font-bold text-white dark:text-slate-800"
-            style={{ fontFamily: "'Inter', sans-serif" }}
-          >
-            Woven
-          </span>
-        </div>
+          <br /> {t("title.line2")} <br />
+          {t("title.line3")}
+        </h1>
+        <HeroCtas
+          primaryLabel={t("ctaPrimary")}
+          secondaryLabel={t("ctaSecondary")}
+        />
       </div>
-    </motion.nav>
+    </TrackedSection>
   )
 }
 
-// --- Three.js Canvas Component ---
 const WovenCanvas = () => {
   const mountRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    if (!mountRef.current) return
+    const mount = mountRef.current
+    if (!mount) return
+
+    // Skip the heavy Three.js work on mobile — the canvas is hidden there.
+    if (window.matchMedia("(max-width: 1023px)").matches) return
 
     const scene = new THREE.Scene()
     const camera = new THREE.PerspectiveCamera(
@@ -137,7 +58,7 @@ const WovenCanvas = () => {
     const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true })
     renderer.setSize(window.innerWidth, window.innerHeight)
     renderer.setPixelRatio(window.devicePixelRatio)
-    mountRef.current.appendChild(renderer.domElement)
+    mount.appendChild(renderer.domElement)
 
     const mouse = new THREE.Vector2(0, 0)
     const clock = new THREE.Clock()
@@ -270,9 +191,17 @@ const WovenCanvas = () => {
     return () => {
       window.removeEventListener("resize", handleResize)
       window.removeEventListener("mousemove", handleMouseMove)
-      mountRef.current?.removeChild(renderer.domElement)
+      if (renderer.domElement.parentNode === mount) {
+        mount.removeChild(renderer.domElement)
+      }
     }
   }, [])
 
-  return <div ref={mountRef} className="absolute inset-0 z-0" />
+  return (
+    <div
+      ref={mountRef}
+      data-testid="hero-canvas"
+      className="absolute inset-0 z-0 hidden lg:block"
+    />
+  )
 }

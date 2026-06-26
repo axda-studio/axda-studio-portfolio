@@ -4,8 +4,10 @@ import { render, screen } from "@testing-library/react"
 import { ClaudeCodeCard } from "./claude-code-card"
 
 const baseProps = {
+  eyebrow: "AI-augmented, not AI-replaced",
   title: { line1: "Faster delivery,", line2: "same bar." },
   description: "Lorem ipsum description of the workflow.",
+  stepsLabel: "The loop",
   steps: [
     { id: 1, label: "Spec", meta: "Plan & intent." },
     { id: 2, label: "Build", meta: "Agent-orchestrated." },
@@ -39,15 +41,17 @@ describe("ClaudeCodeCard", () => {
     ).toBeInTheDocument()
   })
 
-  test("renders all five steps, each in both mobile + desktop lists", () => {
+  test("renders all five steps once (mobile list only)", () => {
+    // The desktop <ol> is currently commented out; steps only render in the
+    // mobile <ul>. JSDOM doesn't apply `lg:hidden`, so the <ul> is in the
+    // document at all viewports.
     render(<ClaudeCodeCard {...baseProps} />)
     for (const { label } of baseProps.steps) {
-      // One in the mobile <ul>, one in the desktop <ol>.
-      expect(screen.getAllByText(label)).toHaveLength(2)
+      expect(screen.getAllByText(label)).toHaveLength(1)
     }
   })
 
-  test("renders step meta only in the mobile list", () => {
+  test("renders step meta in the mobile list", () => {
     render(<ClaudeCodeCard {...baseProps} />)
     for (const { meta } of baseProps.steps) {
       expect(screen.getAllByText(meta)).toHaveLength(1)
@@ -62,9 +66,11 @@ describe("ClaudeCodeCard", () => {
     expect(screen.getByText("2–3×")).toBeInTheDocument()
   })
 
-  test("renders the never warning", () => {
+  test("renders the desktop terminal mock with the prompt label", () => {
     render(<ClaudeCodeCard {...baseProps} />)
-    expect(screen.getByText("Never:")).toBeInTheDocument()
-    expect(screen.getByText("unreviewed merges.")).toBeInTheDocument()
+    // TerminalMock has aria-hidden on the wrapper; we assert by looking for
+    // any text fragment that the mock renders. The terminal's title bar reads
+    // "~/axda — claude code".
+    expect(screen.getByText(/~\/axda\s*—\s*claude code/i)).toBeInTheDocument()
   })
 })

@@ -1,6 +1,5 @@
-import { X } from "lucide-react"
-
-import { ClaudeLogo } from "./claude-logo"
+import type { ReactNode } from "react"
+import { CodeXml, Shield, TrendingUp } from "lucide-react"
 
 interface ClaudeCodeStep {
   id: number
@@ -21,8 +20,10 @@ interface ClaudeCodeLift {
 }
 
 interface ClaudeCodeCardProps {
+  eyebrow: string
   title: { line1: string; line2: string }
-  description: string
+  description: ReactNode
+  stepsLabel: string
   steps: ClaudeCodeStep[]
   foundations: {
     tooling: ClaudeCodeFoundation
@@ -35,27 +36,42 @@ interface ClaudeCodeCardProps {
 export function ClaudeCodeCard({
   title,
   description,
+  stepsLabel,
   steps,
   foundations,
-  never,
 }: ClaudeCodeCardProps) {
   return (
-    <div className="relative space-y-8 rounded-3xl bg-card p-6 ring-1 ring-foreground/10 lg:space-y-10 lg:p-12">
-      <div className="flex justify-between lg:items-center">
-        <h3 className="max-w-4/5 font-serif text-3xl leading-tight font-medium italic lg:text-5xl">
-          <span className="">{title.line1}</span>
-          {""}
-          <span className="text-primary">{title.line2}</span>
-        </h3>
-        <ClaudeLogo
-          aria-hidden="true"
-          className="size-10 text-primary opacity-70"
-        />
+    <div className="relative space-y-8 lg:space-y-10">
+      {/* Top: terminal mock + eyebrow/title/description/foundations */}
+      <div className="grid grid-cols-1 gap-8 lg:grid-cols-[2fr_3fr] lg:gap-12">
+        <TerminalMock className="hidden lg:flex" />
+        <div className="flex flex-col gap-6 lg:gap-8">
+          {/* eyebrow intentionally hidden — kept in props/locale for future re-enable */}
+          <h3 className="font-serif text-3xl leading-tight font-medium italic md:text-4xl lg:text-5xl">
+            <span>{title.line1}</span>{" "}
+            <span className="text-primary">{title.line2}</span>
+          </h3>
+          <p className="text-sm leading-relaxed lg:text-base">{description}</p>
+          <div className="mt-2">
+            <FoundationRow
+              {...foundations.tooling}
+              icon={<CodeXml size={18} />}
+            />
+            <FoundationRow
+              {...foundations.guardrails}
+              icon={<Shield size={18} />}
+            />
+            <LiftRow
+              {...foundations.lift}
+              icon={<TrendingUp size={18} />}
+              isLast
+            />
+          </div>
+        </div>
       </div>
 
-      <p className="max-w-xl text-sm lg:text-base">{description}</p>
-
-      <ul className="space-y-3 lg:hidden" aria-label="Workflow steps">
+      {/* Workflow steps (mobile only — desktop list intentionally hidden) */}
+      <ul className="space-y-3 lg:hidden" aria-label={stepsLabel}>
         {steps.map(({ id, label, meta }) => (
           <li
             key={id}
@@ -71,87 +87,181 @@ export function ClaudeCodeCard({
           </li>
         ))}
       </ul>
-
-      <ol
-        className="hidden items-center gap-2 lg:flex"
-        aria-label="Workflow steps"
-      >
-        {steps.map(({ id, label }, index) => (
-          <li
-            key={id}
-            className="flex flex-1 items-center gap-3 last:flex-none"
-          >
-            <div className="flex size-8 shrink-0 items-center justify-center rounded-full border border-border font-mono text-xs text-muted-foreground">
-              {id}
-            </div>
-            <span className="text-base font-semibold">{label}</span>
-            {index < steps.length - 1 && (
-              <span
-                aria-hidden="true"
-                className="ml-2 flex-1 border-t border-border"
-              />
-            )}
-          </li>
-        ))}
-      </ol>
-
-      <div className="grid grid-cols-1 gap-6 lg:grid-cols-3 lg:gap-0 lg:divide-x lg:divide-border">
-        <FoundationBlock {...foundations.tooling} className="lg:pr-8" />
-        <FoundationBlock {...foundations.guardrails} className="lg:px-8" />
-        <LiftBlock {...foundations.lift} className="lg:pl-8" />
-      </div>
-
-      <p className="flex items-start gap-3 text-sm">
-        <X
-          size={18}
-          aria-hidden="true"
-          className="mt-0.5 shrink-0 text-primary"
-        />
-        <span>
-          <strong className="font-semibold">{never.label}</strong>{" "}
-          <span className="text-muted-foreground">{never.text}</span>
-        </span>
-      </p>
     </div>
   )
 }
 
-function FoundationBlock({
+function IconSquare({ children }: { children: ReactNode }) {
+  return (
+    <div
+      aria-hidden="true"
+      className="flex size-10 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-primary"
+    >
+      {children}
+    </div>
+  )
+}
+
+function FoundationRow({
+  icon,
   label,
   primary,
   suffix,
-  className,
-}: ClaudeCodeFoundation & { className?: string }) {
+  isLast = false,
+}: ClaudeCodeFoundation & { icon: ReactNode; isLast?: boolean }) {
+  const hasSuffix = suffix.trim().length > 0
   return (
-    <div className={`space-y-2 ${className ?? ""}`}>
-      <p className="font-mono text-tiny tracking-wider text-gray-600 uppercase">
-        {label}
-      </p>
-      <p className="text-base">
-        <span className="font-medium">{primary}</span>{" "}
-        <span className="text-muted-foreground">{suffix}</span>
-      </p>
+    <div
+      className={`flex items-center gap-4 py-4 ${
+        isLast ? "" : "border-b border-border"
+      }`}
+    >
+      <IconSquare>{icon}</IconSquare>
+      <div className="flex flex-col">
+        <p className="font-mono text-tiny tracking-wider text-gray-600 uppercase">
+          {label}
+        </p>
+        <p className="text-sm lg:text-base">
+          <span className="font-medium">{primary}</span>
+          {hasSuffix && (
+            <>
+              {" "}
+              <span className="">{suffix}</span>
+            </>
+          )}
+        </p>
+      </div>
     </div>
   )
 }
 
-function LiftBlock({
+function LiftRow({
+  icon,
   label,
   emphasis,
   text,
-  className,
-}: ClaudeCodeLift & { className?: string }) {
+  isLast = false,
+}: ClaudeCodeLift & { icon: ReactNode; isLast?: boolean }) {
   return (
-    <div className={`space-y-2 ${className ?? ""}`}>
-      <p className="font-mono text-tiny tracking-wider text-gray-600 uppercase">
-        {label}
-      </p>
-      <div className="flex items-center gap-3">
-        <span className="shrink-0 font-serif text-5xl leading-none font-medium italic">
-          {emphasis}
-        </span>
-        <span className="text-base text-muted-foreground">{text}</span>
+    <div
+      className={`flex items-start gap-4 py-4 ${
+        isLast ? "" : "border-b border-border"
+      }`}
+    >
+      <IconSquare>{icon}</IconSquare>
+      <div className="flex flex-col">
+        <p className="font-mono text-tiny tracking-wider text-gray-600 uppercase">
+          {label}
+        </p>
+        <p className="text-sm lg:text-base">
+          <span className="font-serif text-2xl leading-none font-bold italic">
+            {emphasis}
+          </span>{" "}
+          <span>{text}</span>
+        </p>
       </div>
     </div>
   )
+}
+
+function TerminalMock({ className }: { className?: string }) {
+  return (
+    <div
+      aria-hidden="true"
+      className={`flex flex-col overflow-hidden rounded-xl border bg-neutral-900 font-mono shadow-lg ${className ?? ""}`}
+    >
+      <div className="flex shrink-0 items-center justify-between border-b border-neutral-800 px-3 py-2">
+        <div className="flex gap-1.5">
+          <span className="size-3 rounded-full bg-red-500" />
+          <span className="size-3 rounded-full bg-yellow-500" />
+          <span className="size-3 rounded-full bg-green-500" />
+        </div>
+        <span className="text-tiny text-neutral-400">~/axda — claude code</span>
+      </div>
+      <div className="flex flex-1 flex-col gap-1 px-4 py-4 text-xs text-neutral-200">
+        <p>
+          <Prompt /> claude{" "}
+          <span className="text-neutral-100">
+            &quot;scaffold dashboard route + tests&quot;
+          </span>
+        </p>
+        <p>
+          <Bullet /> Reading <span className="text-neutral-100">CLAUDE.md</span>
+          <span className="text-neutral-400"> · </span>design tokens
+          <span className="text-neutral-400"> · </span>MCP context
+        </p>
+        <p>
+          <Bullet /> Planning <Arrow />{" "}
+          <span className="text-neutral-100">spec.md</span>
+          <span className="text-neutral-400"> · </span>6 steps
+        </p>
+        <p>
+          <Bullet /> Editing <Arrow />{" "}
+          <span className="text-neutral-100">app/dashboard/page.tsx</span>
+        </p>
+        <p>
+          <Bullet /> Editing <Arrow />{" "}
+          <span className="text-neutral-100">components/Chart.tsx</span>
+        </p>
+        <p>
+          <Bullet /> Editing <Arrow />{" "}
+          <span className="text-neutral-100">lib/metrics.ts</span>
+        </p>
+
+        <p className="h-3" aria-hidden="true" />
+
+        <p>
+          <Prompt /> pnpm typecheck && pnpm test
+        </p>
+        <p>
+          <Check /> tsc — no errors{" "}
+          <span className="text-neutral-400">strict</span>
+        </p>
+        <p>
+          <Check /> 142 passed <span className="text-neutral-400">vitest</span>
+        </p>
+        <p>
+          <Check /> 18 passed{" "}
+          <span className="text-neutral-400">playwright e2e</span>
+        </p>
+        <p>
+          <span className="text-neutral-300">coverage</span> 100%{" "}
+          <span className="ml-1 -tracking-widest text-primary">━━━━━━━━</span>
+        </p>
+
+        <p className="h-3" aria-hidden="true" />
+
+        <p>
+          <Bullet /> <span className="text-neutral-400">Awaiting review</span>{" "}
+          <span className="text-neutral-400">— diff opened</span>
+        </p>
+        <p>
+          <Prompt /> git commit -m{" "}
+          <span className="text-neutral-100">&quot;feat: dashboard&quot;</span>
+        </p>
+        <p className="flex items-center gap-2">
+          <Check />
+          <span>human-reviewed</span>
+          <span className="text-neutral-400">·</span>
+          <span>merged</span>
+        </p>
+      </div>
+    </div>
+  )
+}
+
+function Prompt() {
+  return <span className="text-primary">$</span>
+}
+
+function Bullet() {
+  return <span className="text-primary">●</span>
+}
+
+function Check() {
+  return <span className="text-emerald-400">✓</span>
+}
+
+function Arrow() {
+  return <span className="text-primary">▸</span>
 }

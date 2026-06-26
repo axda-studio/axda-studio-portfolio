@@ -3,9 +3,8 @@ export default {
   tagline: "Estudio en solitario",
   card: {
     title: {
-      template: "{engineer}, con ojo de {designer}.",
+      template: "{engineer}, con ojo de diseñador.",
       engineer: "Ingeniero",
-      designer: "diseñador",
     },
     paragraph1:
       "Soy Frontend Developer con cinco años+ dedicados a construir experiencias digitales que priorizan rendimiento, escalabilidad y excelencia visual.",

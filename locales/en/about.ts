@@ -3,9 +3,8 @@ export default {
   tagline: "Studio of one",
   card: {
     title: {
-      template: "{engineer}, with a {designer}’s eye.",
+      template: "{engineer}, with a designer’s eye.",
       engineer: "Engineer",
-      designer: "designer",
     },
     paragraph1:
       "I am a Frontend Developer with five years+ dedicated to building digital experiences that prioritize performance, scalability, and visual excellence.",

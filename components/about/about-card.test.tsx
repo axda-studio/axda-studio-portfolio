@@ -57,10 +57,4 @@ describe("AboutCard", () => {
     expect(screen.getByText("Frontend Developer")).toBeInTheDocument()
     expect(screen.getByText("Available")).toBeInTheDocument()
   })
-
-  test("avatar shows initials computed from first + last name", () => {
-    const { container } = render(<AboutCard {...baseProps} />)
-    const avatar = container.querySelector('[aria-hidden="true"]')
-    expect(avatar?.textContent).toBe("AD")
-  })
 })

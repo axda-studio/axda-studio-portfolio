@@ -94,6 +94,7 @@
   /* brand */
   /* --primary: oklch(0.682 0.22 35); */
   --primary: oklch(50% 0.131 38);
+  /* --primary: oklch(0.7 0.1616 223.94); */
   --primary-foreground: oklch(1 0 0);
   --accent: oklch(0.93 0.038 45);
   --accent-foreground: oklch(0.175 0.005 65);
@@ -145,6 +146,7 @@
   /* brand */
   /* --primary: oklch(0.682 0.22 35); */
   --primary: oklch(50% 0.131 38);
+  /* --primary: oklch(0.7 0.1616 223.94); */
   --primary-foreground: oklch(1 0 0);
   --accent: oklch(0.93 0.038 45 / 0.16);
   --accent-foreground: oklch(0.927 0.008 85);

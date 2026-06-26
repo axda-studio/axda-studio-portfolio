@@ -1,4 +1,4 @@
 export default {
   copyright: "Axda Studio®",
-  builtWith: "Construido con Next.js · Motion · 100 % testeado",
+  builtWith: "Píxeles con columna vertebral.",
 } as const

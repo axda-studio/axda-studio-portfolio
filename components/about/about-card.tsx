@@ -27,8 +27,6 @@ interface AboutCardProps {
   signature: AboutSignature
 }
 
-const PANEL_CLASSES = "rounded-3xl bg-card p-6 ring-1 ring-foreground/10"
-
 export function AboutCard({
   title,
   paragraph1,
@@ -39,11 +37,9 @@ export function AboutCard({
   signature,
 }: AboutCardProps) {
   return (
-    <div className="space-y-4 lg:grid lg:grid-cols-2 lg:gap-14 lg:space-y-0">
-      {/* Intro — card on mobile, plain content on lg */}
-      <div
-        className={`${PANEL_CLASSES} space-y-6 lg:rounded-none lg:bg-transparent lg:p-0 lg:py-6 lg:ring-0`}
-      >
+    <div className="space-y-6 lg:grid lg:grid-cols-2 lg:gap-14 lg:space-y-0">
+      {/* Intro — plain content at every breakpoint */}
+      <div className="space-y-6 lg:py-6">
         <h3 className="text-justify font-serif text-3xl leading-tight font-medium italic lg:text-5xl">
           {title}
         </h3>
@@ -54,7 +50,7 @@ export function AboutCard({
       </div>
 
       {/* Right column: facts + signature — card at every breakpoint */}
-      <div className={`${PANEL_CLASSES} flex flex-col gap-8 lg:p-12`}>
+      <div className="flex flex-col gap-8 rounded-3xl bg-card p-6 ring-1 ring-foreground/10 lg:p-12">
         <div className="flex items-start justify-between gap-4">
           <div className="flex items-center gap-4">
             <div className="relative size-14 shrink-0 overflow-hidden rounded-full border border-gray-600">
