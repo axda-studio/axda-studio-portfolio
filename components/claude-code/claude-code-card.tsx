@@ -176,7 +176,9 @@ function TerminalMock({ className }: { className?: string }) {
           <span className="size-3 rounded-full bg-yellow-500" />
           <span className="size-3 rounded-full bg-green-500" />
         </div>
-        <span className="text-tiny text-neutral-400">~/axda — claude code</span>
+        <span className="text-tiny text-neutral-400">
+          ~/axda studio — claude code
+        </span>
       </div>
       <div className="flex flex-1 flex-col gap-1 px-4 py-4 text-xs text-neutral-200">
         <p>

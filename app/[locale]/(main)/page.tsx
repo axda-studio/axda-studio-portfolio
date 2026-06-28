@@ -59,9 +59,6 @@ export default async function HomePage() {
           {SELECTED_WORK_ITEMS.map(({ id, image, liveUrl, metricIds }) => (
             <li key={id}>
               <WorkCard
-                featuredLabel={tWork("featuredLabel")}
-                year={tWork(`items.${id}.year`)}
-                tech={tWork(`items.${id}.tech`)}
                 image={{ src: image.src, alt: tWork(`items.${id}.imageAlt`) }}
                 title={{
                   prefix: tWork(`items.${id}.title.prefix`),

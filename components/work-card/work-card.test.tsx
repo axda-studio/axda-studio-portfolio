@@ -10,9 +10,6 @@ vi.mock("next-themes", () => ({
 }))
 
 const baseProps = {
-  featuredLabel: "Featured",
-  year: "2025",
-  tech: "WEB",
   image: {
     src: {
       mobile: {
@@ -27,7 +24,7 @@ const baseProps = {
     alt: "Tyklo preview",
   },
   title: { prefix: "Tyklo", emphasis: "Timesheet made easy" },
-  tags: "B2B · SaaS",
+  tags: "WEB · B2B · SaaS",
   description: "A web-based timesheet app for Parakar employees.",
   liveUrl: "https://tyklo.eu",
   liveLabel: "Live site",
@@ -40,12 +37,6 @@ const baseProps = {
 }
 
 describe("WorkCard", () => {
-  test("renders the FEATURED + year · tech overlay badges", () => {
-    render(<WorkCard {...baseProps} />)
-    expect(screen.getByText("Featured")).toBeInTheDocument()
-    expect(screen.getByText(/2025\s*·\s*WEB/)).toBeInTheDocument()
-  })
-
   test("renders the title prefix and emphasis", () => {
     render(<WorkCard {...baseProps} />)
     expect(screen.getByText("Tyklo")).toBeInTheDocument()
@@ -54,7 +45,7 @@ describe("WorkCard", () => {
 
   test("renders tags and description", () => {
     render(<WorkCard {...baseProps} />)
-    expect(screen.getByText("B2B · SaaS")).toBeInTheDocument()
+    expect(screen.getByText("WEB · B2B · SaaS")).toBeInTheDocument()
     expect(screen.getByText(baseProps.description)).toBeInTheDocument()
   })
 
