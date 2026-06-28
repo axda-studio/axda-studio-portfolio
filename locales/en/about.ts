@@ -2,7 +2,10 @@ export default {
   eyebrow: "About",
   tagline: "Studio of one",
   card: {
-    title: "Engineer, with a designer’s eye.",
+    title: {
+      template: "{engineer}, with a designer’s eye.",
+      engineer: "Engineer",
+    },
     paragraph1:
       "I am a Frontend Developer with five years+ dedicated to building digital experiences that prioritize performance, scalability, and visual excellence.",
     paragraph2: {
@@ -16,6 +19,8 @@ export default {
         "I care about the boring stuff — types, tests, accessibility, performance budgets, analytics from day one — because those are what make the beautiful stuff actually {emphasis}.",
       emphasis: "last",
     },
+    paragraph4:
+      "Beyond development, I leverage valuable expertise in Psychology, Marketing and Design, enabling me to approach projects holistically and deliver solutions that truly resonate.",
     facts: {
       now: {
         label: "Now",

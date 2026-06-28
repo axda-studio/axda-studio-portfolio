@@ -2,17 +2,22 @@ export default {
   eyebrow: "Comment je travaille avec Claude Code",
   tagline: "Spec → livraison",
   card: {
+    eyebrow: "Augmenté par l’IA, pas remplacé",
     title: {
       line1: "Livraison plus rapide,",
       line2: "même exigence.",
     },
-    description:
-      "Claude Code, c’est un coéquipier quotidien — pas une baguette magique. Spec-driven et orchestré par agents, avec les mêmes TypeScript, tests et review qu’aurait n’importe quelle PR humaine. Les semaines deviennent des jours ; chaque ligne reste lue, relue et endossée par moi avant le merge.",
+    description: {
+      template:
+        "Claude Code, c’est un coéquipier quotidien — jamais un raccourci. Je le pilote spec-first et orchestré par agents, puis je tiens chaque change au {emphasis} qu’aurait toute PR humaine. Les semaines s’écrasent en jours ; la barre de qualité ne bouge pas.",
+      emphasis: "même TypeScript, mêmes tests et même review",
+    },
+    stepsLabel: "La boucle",
     steps: {
       1: { label: "Spec", meta: "Plan & intention, écrits d’abord." },
       2: {
         label: "Build",
-        meta: "Orchestré par agents, CLAUDE.md par repo.",
+        meta: "Orchestré par agents, CLAUDE.md.",
       },
       3: { label: "Test", meta: "Vitest + Playwright, cible 100 %." },
       4: { label: "Review", meta: "Diff lu ligne par ligne, TS strict." },
@@ -21,12 +26,12 @@ export default {
     foundations: {
       tooling: {
         label: "Outils",
-        primary: "CLAUDE.md custom par repo, sous-agents & contexte MCP",
+        primary: "CLAUDE.md, sous-agents & contexte MCP",
         suffix: "intégrés.",
       },
       guardrails: {
         label: "Garde-fous",
-        primary: "TS strict, cible 100 % de tests, régression visuelle",
+        primary: "TS strict · 100 % de tests · régression visuelle",
         suffix: "en CI.",
       },
       lift: {

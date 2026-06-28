@@ -8,6 +8,7 @@ const baseProps = {
   paragraph1: "First paragraph copy.",
   paragraph2: "Second paragraph copy.",
   paragraph3: "Third paragraph copy.",
+  paragraph4: "Fourth paragraph copy.",
   facts: [
     { key: "now", label: "Now", primary: "Senior", suffix: "freelance" },
     { key: "stack", label: "Stack", primary: "Next.js", suffix: " " },
@@ -26,11 +27,12 @@ describe("AboutCard", () => {
     expect(screen.getByText(baseProps.title)).toBeInTheDocument()
   })
 
-  test("renders all three paragraphs", () => {
+  test("renders all four paragraphs", () => {
     render(<AboutCard {...baseProps} />)
     expect(screen.getByText("First paragraph copy.")).toBeInTheDocument()
     expect(screen.getByText("Second paragraph copy.")).toBeInTheDocument()
     expect(screen.getByText("Third paragraph copy.")).toBeInTheDocument()
+    expect(screen.getByText("Fourth paragraph copy.")).toBeInTheDocument()
   })
 
   test("renders fact labels and primary values", () => {
@@ -54,11 +56,5 @@ describe("AboutCard", () => {
     expect(screen.getByText("Alyx Darenne")).toBeInTheDocument()
     expect(screen.getByText("Frontend Developer")).toBeInTheDocument()
     expect(screen.getByText("Available")).toBeInTheDocument()
-  })
-
-  test("avatar shows initials computed from first + last name", () => {
-    const { container } = render(<AboutCard {...baseProps} />)
-    const avatar = container.querySelector('[aria-hidden="true"]')
-    expect(avatar?.textContent).toBe("AD")
   })
 })

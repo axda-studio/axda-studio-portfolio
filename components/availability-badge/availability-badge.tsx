@@ -14,7 +14,7 @@ export function AvailabilityBadge({
   return (
     <div
       className={cn(
-        "flex w-fit items-center gap-x-2 rounded-full border px-2 py-0.5 font-mono text-tiny uppercase shadow-md",
+        "flex w-fit items-center gap-x-2 rounded-full border px-2 py-0.5 font-mono text-tiny uppercase",
         className
       )}
     >

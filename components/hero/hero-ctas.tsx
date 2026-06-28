@@ -34,7 +34,7 @@ export function HeroCtas({ primaryLabel, secondaryLabel }: HeroCtasProps) {
   }
 
   return (
-    <div className="flex items-center gap-x-4">
+    <div className="flex items-center justify-center gap-x-4">
       <Button
         asChild
         className="rounded-full bg-foreground p-4 text-background"

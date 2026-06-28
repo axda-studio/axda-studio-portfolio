@@ -12,7 +12,7 @@ export async function DesktopNav() {
   return (
     <header
       data-testid="header"
-      className="fixed top-6 z-10 hidden w-full max-w-6xl items-center justify-between rounded-full border bg-popover/70 px-3 py-2 text-sm backdrop-blur-md lg:flex"
+      className="fixed top-6 left-1/2 z-50 hidden w-full max-w-6xl -translate-x-1/2 items-center justify-between rounded-full border bg-popover/70 px-3 py-2 text-sm backdrop-blur-md lg:flex"
     >
       <Logo variant="desktop" />
       <nav aria-label="primary">

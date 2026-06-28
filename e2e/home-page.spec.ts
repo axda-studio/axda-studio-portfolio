@@ -39,11 +39,16 @@ test.describe("Home page", () => {
     await expect(header.root).toBeVisible()
   })
 
-  test("renders the hero heading and intro copy", async ({ page }) => {
-    await expect(
-      page.getByRole("heading", { level: 1, name: /frontend engineer/i })
-    ).toBeVisible()
-    await expect(page.getByText(/one-person frontend practice/i)).toBeVisible()
+  test("renders the hero heading with the emphasized UI word", async ({
+    page,
+  }) => {
+    const heading = page.getByRole("heading", {
+      level: 1,
+      name: /beautiful\s+ui/i,
+    })
+    await expect(heading).toBeVisible()
+    await expect(heading).toContainText(/engineered to last/i)
+    await expect(heading).toContainText(/optimized for growth/i)
   })
 
   test("primary CTA links to the work section", async ({ page }) => {
@@ -144,18 +149,11 @@ test.describe("Home page — claude-code section", () => {
     const section = page.locator("#claude-code")
     await expect(section.getByText(enClaudeCode.card.title.line1)).toBeVisible()
     await expect(section.getByText(enClaudeCode.card.title.line2)).toBeVisible()
-    await expect(section.getByText(enClaudeCode.card.description)).toBeVisible()
-  })
-
-  test("renders all five workflow step labels", async ({ page }) => {
-    // Each label is rendered in two lists (mobile <ul>, desktop <ol>); at the
-    // default Playwright viewport (desktop) only the <ol> is visible. Scope to
-    // it explicitly so we don't pick up the hidden mobile list with .first().
-    const desktopList = page.locator("#claude-code ol")
-    for (const id of [1, 2, 3, 4, 5] as const) {
-      const { label } = enClaudeCode.card.steps[id]
-      await expect(desktopList.getByText(label, { exact: true })).toBeVisible()
-    }
+    const description = enClaudeCode.card.description.template.replace(
+      "{emphasis}",
+      enClaudeCode.card.description.emphasis
+    )
+    await expect(section.getByText(description)).toBeVisible()
   })
 
   test("renders the three foundation labels and the lift emphasis", async ({
@@ -175,12 +173,6 @@ test.describe("Home page — claude-code section", () => {
       section.getByText(enClaudeCode.card.foundations.lift.emphasis)
     ).toBeVisible()
   })
-
-  test("renders the never warning", async ({ page }) => {
-    const section = page.locator("#claude-code")
-    await expect(section.getByText(enClaudeCode.card.never.label)).toBeVisible()
-    await expect(section.getByText(enClaudeCode.card.never.text)).toBeVisible()
-  })
 })
 
 test.describe("Home page — about section", () => {
@@ -198,7 +190,11 @@ test.describe("Home page — about section", () => {
 
   test("renders the card title and first paragraph", async ({ page }) => {
     const section = page.locator("#about")
-    await expect(section.getByText(enAbout.card.title)).toBeVisible()
+    const title = enAbout.card.title.template.replace(
+      "{engineer}",
+      enAbout.card.title.engineer
+    )
+    await expect(section.getByText(title)).toBeVisible()
     await expect(section.getByText(enAbout.card.paragraph1)).toBeVisible()
   })
 
@@ -216,11 +212,12 @@ test.describe("Home page — about section", () => {
     await expect(section.getByText(sig.available)).toBeVisible()
   })
 
-  test("renders the avatar initials (first + last name)", async ({ page }) => {
+  test("renders the avatar image with the full-name alt", async ({ page }) => {
     const section = page.locator("#about")
     const sig = enAbout.card.signature
-    const initials = `${sig.firstName[0]}${sig.lastName[0]}`
-    await expect(section.getByText(initials, { exact: true })).toBeVisible()
+    await expect(
+      section.getByRole("img", { name: `${sig.firstName} ${sig.lastName}` })
+    ).toBeVisible()
   })
 })
 
@@ -448,6 +445,22 @@ test.describe("Home page — mobile viewport", () => {
   }) => {
     await expect(header.root).toBeHidden()
     await expect(page.getByRole("navigation", { name: "mobile" })).toBeVisible()
+  })
+
+  test("hides the 3D hero canvas below the lg breakpoint", async ({ page }) => {
+    await expect(page.getByTestId("hero-canvas")).toBeHidden()
+  })
+
+  test("renders all five claude-code workflow steps in the mobile list", async ({
+    page,
+  }) => {
+    // The desktop <ol> is commented out; steps only render in the mobile <ul>,
+    // which is `lg:hidden` (visible at this 375px viewport).
+    const mobileList = page.locator("#claude-code ul[aria-label]")
+    for (const id of [1, 2, 3, 4, 5] as const) {
+      const { label } = enClaudeCode.card.steps[id]
+      await expect(mobileList.getByText(label, { exact: true })).toBeVisible()
+    }
   })
 
   test("mobile nav links to the home and section anchors", async ({ page }) => {

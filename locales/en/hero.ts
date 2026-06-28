@@ -4,9 +4,12 @@ export default {
     desktop: "Available for new roles — Q1’27",
   },
   title: {
-    template: "Frontend engineer building {first}, {second} interfaces.",
-    first: "beautiful",
-    second: "resilient",
+    headline: {
+      prefix: "Beautiful",
+      emphasis: "UI",
+    },
+    line2: "engineered to last,",
+    line3: "optimized for growth.",
   },
   intro: {
     template:
