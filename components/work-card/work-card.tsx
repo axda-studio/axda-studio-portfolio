@@ -12,9 +12,6 @@ interface WorkCardMetric {
 }
 
 interface WorkCardProps {
-  featuredLabel: string
-  year: string
-  tech: string
   image: {
     src: {
       mobile: { default: string; dark: string }
@@ -31,9 +28,6 @@ interface WorkCardProps {
 }
 
 export function WorkCard({
-  featuredLabel,
-  year,
-  tech,
   image,
   title,
   tags,
@@ -45,7 +39,7 @@ export function WorkCard({
   const { theme } = useTheme()
 
   return (
-    <article className="overflow-hidden rounded-3xl bg-card ring-1 ring-foreground/10">
+    <article className="overflow-hidden rounded-xl bg-card ring-1 ring-foreground/10">
       <div className="relative aspect-4/3 overflow-hidden lg:aspect-3/1">
         {theme === "dark" ? (
           <>
@@ -86,12 +80,6 @@ export function WorkCard({
             />
           </>
         )}
-        <span className="absolute top-4 left-4 rounded-full bg-background/30 px-3 py-1 font-mono text-tiny tracking-wider text-foreground uppercase backdrop-blur-sm">
-          {featuredLabel}
-        </span>
-        <span className="absolute top-4 right-4 rounded-full bg-background/30 px-3 py-1 font-mono text-tiny tracking-wider text-foreground backdrop-blur-sm">
-          {year} · {tech}
-        </span>
       </div>
 
       <div className="space-y-6 p-6 lg:p-8">

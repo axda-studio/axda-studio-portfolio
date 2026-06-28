@@ -71,6 +71,8 @@ describe("ClaudeCodeCard", () => {
     // TerminalMock has aria-hidden on the wrapper; we assert by looking for
     // any text fragment that the mock renders. The terminal's title bar reads
     // "~/axda — claude code".
-    expect(screen.getByText(/~\/axda\s*—\s*claude code/i)).toBeInTheDocument()
+    expect(
+      screen.getByText(/~\/axda studio\s*—\s*claude code/i)
+    ).toBeInTheDocument()
   })
 })

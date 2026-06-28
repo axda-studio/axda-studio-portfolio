@@ -37,7 +37,7 @@ export function ContactCard({
   const year = new Date().getFullYear()
 
   return (
-    <div className="relative overflow-hidden rounded-3xl bg-foreground bg-radial-[circle_at_80%_50%] from-primary/45 from-0% to-transparent to-55% p-8 text-background lg:p-12">
+    <div className="relative overflow-hidden rounded-xl bg-foreground bg-radial-[circle_at_80%_50%] from-primary/45 from-0% to-transparent to-55% p-8 text-background lg:p-12">
       <h2 className="text-3xl font-semibold lg:max-w-2xl lg:text-6xl">
         {title}
       </h2>

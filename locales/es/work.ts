@@ -1,18 +1,15 @@
 export default {
   eyebrow: "Trabajos seleccionados",
-  tagline: "2023 - 2026",
-  featuredLabel: "Destacado",
+  tagline: "2025",
   liveLabel: "Sitio en vivo",
   items: {
     tyklo: {
-      year: "2025",
-      tech: "WEB",
       imageAlt: "Vista previa de la app Tyklo",
       title: {
         prefix: "Tyklo",
         emphasis: "El parte de horas, sin esfuerzo",
       },
-      tags: "B2B · SaaS",
+      tags: "WEB · B2B · SaaS",
       description:
         "App web de partes de horas: enviar el parte del mes en curso, declarar vacaciones o ausencias, recibir recordatorios automáticos y consultar el historial desde un panel.",
       metrics: {

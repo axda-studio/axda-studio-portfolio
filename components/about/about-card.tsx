@@ -50,7 +50,7 @@ export function AboutCard({
       </div>
 
       {/* Right column: facts + signature — card at every breakpoint */}
-      <div className="flex flex-col gap-8 rounded-3xl bg-card p-6 ring-1 ring-foreground/10 lg:p-12">
+      <div className="flex flex-col gap-8 rounded-xl bg-card p-6 ring-1 ring-foreground/10 lg:p-12">
         <div className="flex items-start justify-between gap-4">
           <div className="flex items-center gap-4">
             <div className="relative size-14 shrink-0 overflow-hidden rounded-full border border-gray-600">

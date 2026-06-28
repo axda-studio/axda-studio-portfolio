@@ -1,15 +1,12 @@
 export default {
   eyebrow: "Selected work",
-  tagline: "2023 - 2026",
-  featuredLabel: "Featured",
+  tagline: "2025",
   liveLabel: "Live site",
   items: {
     tyklo: {
-      year: "2025",
-      tech: "WEB",
       imageAlt: "Tyklo timesheet app preview",
       title: { prefix: "Tyklo", emphasis: "Timesheet made easy" },
-      tags: "B2B · SaaS",
+      tags: "WEB · B2B · SaaS",
       description:
         "Web-based timesheet app: submit current-month timesheets, declare leave or absences, receive automated reminders, and access a dashboard of historical entries.",
       metrics: {

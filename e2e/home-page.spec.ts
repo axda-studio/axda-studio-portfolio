@@ -100,15 +100,6 @@ test.describe("Home page — work section", () => {
     await expect(section.getByText(tyklo.description)).toBeVisible()
   })
 
-  test("renders FEATURED and year · tech overlay badges", async ({ page }) => {
-    const section = page.locator("#work")
-    const tyklo = enWork.items.tyklo
-    await expect(section.getByText(enWork.featuredLabel)).toBeVisible()
-    await expect(
-      section.getByText(`${tyklo.year} · ${tyklo.tech}`)
-    ).toBeVisible()
-  })
-
   test("live-site link opens tyklo.eu in a new tab with safe rel", async ({
     page,
   }) => {
