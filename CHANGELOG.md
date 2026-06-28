@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.1](https://github.com/axda-studio/axda-studio-portfolio/compare/v0.1.0...v0.1.1) (2026-06-28)
+
+
+### Bug Fixes
+
+* refine hero, about and claude-code sections ([#9](https://github.com/axda-studio/axda-studio-portfolio/issues/9)) ([301bf75](https://github.com/axda-studio/axda-studio-portfolio/commit/301bf75ac5c20ec41a0724943c4af5c1a671f22d))
+
 ## [0.1.0](https://github.com/axda-studio/axda-studio-portfolio/compare/v0.0.1...v0.1.0) (2026-06-13)
 
 
