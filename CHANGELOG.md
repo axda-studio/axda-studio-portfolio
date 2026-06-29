@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.2](https://github.com/axda-studio/axda-studio-portfolio/compare/v0.1.1...v0.1.2) (2026-06-28)
+
+
+### Bug Fixes
+
+* update selected work images ([#11](https://github.com/axda-studio/axda-studio-portfolio/issues/11)) ([cd4443c](https://github.com/axda-studio/axda-studio-portfolio/commit/cd4443c003bc89d3e04a7349529d30b6032aef61))
+
 ## [0.1.1](https://github.com/axda-studio/axda-studio-portfolio/compare/v0.1.0...v0.1.1) (2026-06-28)
 
 
