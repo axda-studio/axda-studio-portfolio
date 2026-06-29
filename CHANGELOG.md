@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.0](https://github.com/axda-studio/axda-studio-portfolio/compare/v0.1.2...v0.2.0) (2026-06-29)
+
+
+### Features
+
+* **hero:** redesign hero section ([#13](https://github.com/axda-studio/axda-studio-portfolio/issues/13)) ([28e452e](https://github.com/axda-studio/axda-studio-portfolio/commit/28e452eefa3dd2e8662085d7f6f934e40e527174))
+
 ## [0.1.2](https://github.com/axda-studio/axda-studio-portfolio/compare/v0.1.1...v0.1.2) (2026-06-28)
 
 
