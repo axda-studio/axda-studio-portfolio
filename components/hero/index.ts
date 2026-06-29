@@ -1,2 +1,2 @@
 export { HeroCtas } from "./hero-ctas"
-export { WovenLightHero } from "./hero-animation"
+export { Hero } from "./hero"

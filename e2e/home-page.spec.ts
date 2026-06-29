@@ -10,6 +10,7 @@ import enContact from "@/locales/en/contact"
 import enWork from "@/locales/en/work"
 import enClaudeCode from "@/locales/en/claude-code"
 import enAbout from "@/locales/en/about"
+import enHero from "@/locales/en/hero"
 
 const SECTION_IDS = [
   "hero",
@@ -39,6 +40,12 @@ test.describe("Home page", () => {
     await expect(header.root).toBeVisible()
   })
 
+  test("renders the hero tagline with role and skills", async ({ page }) => {
+    const hero = page.locator("#hero")
+    await expect(hero.getByText(enHero.tagline.role)).toBeVisible()
+    await expect(hero.getByText(enHero.tagline.skills)).toBeVisible()
+  })
+
   test("renders the hero heading with the emphasized UI word", async ({
     page,
   }) => {
@@ -47,8 +54,16 @@ test.describe("Home page", () => {
       name: /beautiful\s+ui/i,
     })
     await expect(heading).toBeVisible()
-    await expect(heading).toContainText(/engineered to last/i)
-    await expect(heading).toContainText(/optimized for growth/i)
+    await expect(heading).toContainText(/built to last/i)
+  })
+
+  test("renders the hero subtitle with the underlined emphasis", async ({
+    page,
+  }) => {
+    const hero = page.locator("#hero")
+    await expect(hero).toContainText(/engineered for resilience/i)
+    await expect(hero).toContainText(/optimized for/i)
+    await expect(hero.getByText(/growth\./i)).toBeVisible()
   })
 
   test("primary CTA links to the work section", async ({ page }) => {
@@ -436,10 +451,6 @@ test.describe("Home page — mobile viewport", () => {
   }) => {
     await expect(header.root).toBeHidden()
     await expect(page.getByRole("navigation", { name: "mobile" })).toBeVisible()
-  })
-
-  test("hides the 3D hero canvas below the lg breakpoint", async ({ page }) => {
-    await expect(page.getByTestId("hero-canvas")).toBeHidden()
   })
 
   test("renders all five claude-code workflow steps in the mobile list", async ({
