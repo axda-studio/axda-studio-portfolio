@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.3.0](https://github.com/axda-studio/axda-studio-portfolio/compare/v0.2.0...v0.3.0) (2026-07-08)
+
+
+### Features
+
+* add motion animations ([#15](https://github.com/axda-studio/axda-studio-portfolio/issues/15)) ([2ecd6bd](https://github.com/axda-studio/axda-studio-portfolio/commit/2ecd6bd3dc2edc4522784a3efb0455b814440d9c))
+
 ## [0.2.0](https://github.com/axda-studio/axda-studio-portfolio/compare/v0.1.2...v0.2.0) (2026-06-29)
 
 
