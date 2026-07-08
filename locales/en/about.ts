@@ -48,7 +48,7 @@ export default {
     },
     signature: {
       firstName: "Alyx",
-      lastName: "Darenne",
+      lastName: "DARENNE",
       role: "Frontend Developer",
       available: "Available",
     },
