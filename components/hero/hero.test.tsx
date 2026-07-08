@@ -1,5 +1,6 @@
 import { expect, test, describe, vi, beforeEach } from "vitest"
-import { render, screen } from "@testing-library/react"
+import { act, fireEvent, render, screen } from "@testing-library/react"
+import posthog from "posthog-js"
 
 import { Hero } from "./hero"
 
@@ -23,6 +24,7 @@ class NoopIntersectionObserver {
 
 beforeEach(() => {
   vi.stubGlobal("IntersectionObserver", NoopIntersectionObserver)
+  vi.mocked(posthog.capture).mockClear()
 })
 
 const baseProps = {
@@ -47,11 +49,39 @@ const baseProps = {
 
 describe("Hero", () => {
   test("renders the heading with the headline prefix, emphasis, and tail", () => {
-    render(<Hero {...baseProps} />)
-    const heading = screen.getByRole("heading", { level: 1 })
-    expect(heading).toHaveTextContent("Beautiful")
-    expect(heading).toHaveTextContent("UI")
-    expect(heading).toHaveTextContent("built to last.")
+    vi.useFakeTimers()
+    try {
+      render(<Hero {...baseProps} />)
+      // Typewriter reveals one character per tick after an initial delay.
+      // Advance well past the full sequence so the heading is fully typed.
+      act(() => {
+        vi.advanceTimersByTime(5000)
+      })
+      const heading = screen.getByRole("heading", { level: 1 })
+      expect(heading).toHaveTextContent("Beautiful")
+      expect(heading).toHaveTextContent("UI")
+      expect(heading).toHaveTextContent("built to last.")
+    } finally {
+      vi.useRealTimers()
+    }
+  })
+
+  test("renders a caret next to the emphasis while it is being typed", () => {
+    vi.useFakeTimers()
+    try {
+      render(<Hero {...baseProps} />)
+      // prefix "Beautiful" (9 chars) is fully revealed after 200ms delay +
+      // 9 * 60ms = 740ms. Advancing to ~800ms puts us mid-emphasis so the
+      // in-emphasis caret is on-screen.
+      act(() => {
+        vi.advanceTimersByTime(800)
+      })
+      const heading = screen.getByRole("heading", { level: 1 })
+      expect(heading).toHaveTextContent("Beautiful")
+      expect(heading).not.toHaveTextContent("built to last.")
+    } finally {
+      vi.useRealTimers()
+    }
   })
 
   test("renders the tagline role and skills", () => {
@@ -81,5 +111,25 @@ describe("Hero", () => {
     const rel = booking.getAttribute("rel") ?? ""
     expect(rel).toContain("noopener")
     expect(rel).toContain("noreferrer")
+  })
+
+  test("primary CTA click captures cta_clicked with work target", () => {
+    render(<Hero {...baseProps} />)
+    fireEvent.click(screen.getByRole("link", { name: /see selected work/i }))
+    expect(posthog.capture).toHaveBeenCalledWith("cta_clicked", {
+      label: "See selected work",
+      location: "hero",
+      target: "work",
+    })
+  })
+
+  test("secondary CTA click captures cta_clicked with booking target and send_instantly", () => {
+    render(<Hero {...baseProps} />)
+    fireEvent.click(screen.getByRole("link", { name: /schedule a call/i }))
+    expect(posthog.capture).toHaveBeenCalledWith(
+      "cta_clicked",
+      { label: "Schedule a call", location: "hero", target: "booking" },
+      { send_instantly: true }
+    )
   })
 })

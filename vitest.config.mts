@@ -10,5 +10,8 @@ export default defineConfig({
     environment: "jsdom",
     setupFiles: ["./vitest.setup.ts"],
     exclude: [...configDefaults.exclude, "e2e/**"],
+    coverage: {
+      exclude: ["**/index.ts", "**/*.d.ts"],
+    },
   },
 })

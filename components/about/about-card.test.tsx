@@ -15,7 +15,7 @@ const baseProps = {
   ],
   signature: {
     firstName: "Alyx",
-    lastName: "Darenne",
+    lastName: "DARENNE",
     role: "Frontend Developer",
     available: "Available",
   },
@@ -53,7 +53,7 @@ describe("AboutCard", () => {
 
   test("renders the signature name, role, and Available badge", () => {
     render(<AboutCard {...baseProps} />)
-    expect(screen.getByText("Alyx Darenne")).toBeInTheDocument()
+    expect(screen.getByText("Alyx DARENNE")).toBeInTheDocument()
     expect(screen.getByText("Frontend Developer")).toBeInTheDocument()
     expect(screen.getByText("Available")).toBeInTheDocument()
   })

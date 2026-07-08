@@ -1,7 +1,21 @@
-import { expect, test, describe } from "vitest"
+import { expect, test, describe, vi, beforeEach } from "vitest"
 import { fireEvent, render, screen } from "@testing-library/react"
 
 import { FaqList } from "./faq-list"
+
+class NoopIntersectionObserver {
+  disconnect = vi.fn()
+  observe = vi.fn()
+  unobserve = vi.fn()
+  takeRecords = vi.fn(() => [])
+  root = null
+  rootMargin = ""
+  thresholds: ReadonlyArray<number> = []
+}
+
+beforeEach(() => {
+  vi.stubGlobal("IntersectionObserver", NoopIntersectionObserver)
+})
 
 const items = [
   { id: 1, question: "First question?", answer: "First answer." },

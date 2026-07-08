@@ -1,6 +1,6 @@
 import { test, expect } from "./fixtures"
 import { CAL_URL } from "@/components/nav/nav"
-import { PILLARS } from "@/components/pillar-card/constants"
+import { PILLARS } from "@/components/pillar/constants"
 import { STACK_ITEMS } from "@/components/stack-card/constants"
 import { FAQ_ITEMS } from "@/components/faq/constants"
 import enPillars from "@/locales/en/pillars"
@@ -241,7 +241,7 @@ test.describe("Home page — pillars section", () => {
   test("renders one card per pillar", async ({ page }) => {
     // Each card holds a nested <li> badge list, so we target direct grid
     // children rather than every listitem in the section.
-    const cards = page.locator("#pillars > ul > li")
+    const cards = page.locator("#pillars ul.grid > li")
     await expect(cards).toHaveCount(PILLARS.length)
   })
 
@@ -250,7 +250,7 @@ test.describe("Home page — pillars section", () => {
     test(`renders the "${item.label}" card`, async ({ page }) => {
       const paddedId = String(id).padStart(2, "0")
       const card = page
-        .locator("#pillars > ul > li")
+        .locator("#pillars ul.grid > li")
         .filter({ hasText: new RegExp(`${paddedId} — ${item.label}`, "i") })
 
       await expect(card).toHaveCount(1)
@@ -278,7 +278,7 @@ test.describe("Home page — stack section", () => {
   })
 
   test("renders one card per stack item", async ({ page }) => {
-    const cards = page.locator("#stack > ul > li")
+    const cards = page.locator("#stack ul.grid > li")
     await expect(cards).toHaveCount(STACK_ITEMS.length)
   })
 
@@ -286,7 +286,7 @@ test.describe("Home page — stack section", () => {
     const item = enStack.items[id]
     test(`renders the "${item.title}" card`, async ({ page }) => {
       const card = page
-        .locator("#stack > ul > li")
+        .locator("#stack ul.grid > li")
         .filter({ hasText: item.label })
         .filter({ hasText: item.title })
 
@@ -298,7 +298,7 @@ test.describe("Home page — stack section", () => {
 
   test("renders inline <code> for the FOUNDATION card", async ({ page }) => {
     const foundation = page
-      .locator("#stack > ul > li")
+      .locator("#stack ul.grid > li")
       .filter({ hasText: "FOUNDATION" })
     await expect(foundation.locator("code")).toHaveText("any")
   })

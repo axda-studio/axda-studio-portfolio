@@ -1,13 +1,23 @@
-import { expect, test, describe, vi } from "vitest"
+import { expect, test, describe, vi, beforeEach } from "vitest"
 import { render, screen } from "@testing-library/react"
 
 import { WorkCard } from "./work-card"
 
 // next-themes is consumed by next/image's parent context indirectly; stub it
-// so the component renders deterministically in jsdom.
+// so the component renders deterministically in jsdom. The theme value is
+// hoisted so individual tests can flip to dark before rendering.
+const themeState = vi.hoisted(() => ({ theme: "light" }))
+
 vi.mock("next-themes", () => ({
-  useTheme: () => ({ theme: "light", resolvedTheme: "light" }),
+  useTheme: () => ({
+    theme: themeState.theme,
+    resolvedTheme: themeState.theme,
+  }),
 }))
+
+beforeEach(() => {
+  themeState.theme = "light"
+})
 
 const baseProps = {
   image: {
@@ -65,5 +75,19 @@ describe("WorkCard", () => {
       expect(screen.getByText(value)).toBeInTheDocument()
       expect(screen.getByText(label)).toBeInTheDocument()
     }
+  })
+
+  test("in dark theme, renders the dark image variants", () => {
+    themeState.theme = "dark"
+    render(<WorkCard {...baseProps} />)
+    const images = screen.getAllByRole("img", { name: baseProps.image.alt })
+    const srcs = images.map((img) => img.getAttribute("src") ?? "")
+    // next/image encodes the src into the query string of its /_next/image url.
+    expect(
+      srcs.some((src) => src.includes(encodeURIComponent("mobile-dark")))
+    ).toBe(true)
+    expect(
+      srcs.some((src) => src.includes(encodeURIComponent("desktop-dark")))
+    ).toBe(true)
   })
 })
