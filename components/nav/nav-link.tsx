@@ -20,7 +20,7 @@ export function NavLink({ href, label, icon, children }: NavLinkProps) {
     <Link
       href={href}
       onClick={handleClick}
-      className="flex flex-col items-center gap-1 text-xs lg:text-sm"
+      className="flex flex-col items-center gap-1 rounded-full text-xs focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ring lg:text-sm"
     >
       {icon ? icon : null}
       {children}

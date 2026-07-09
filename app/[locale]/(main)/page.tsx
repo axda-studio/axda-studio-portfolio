@@ -28,6 +28,7 @@ export default async function HomePage() {
   const tWork = await getScopedI18n("work")
   const tClaudeCode = await getScopedI18n("claudeCode")
   const tAbout = await getScopedI18n("about")
+  const tA11y = await getScopedI18n("a11y")
 
   return (
     <div className="mx-auto max-w-6xl space-y-12 px-4 lg:space-y-24">
@@ -197,6 +198,7 @@ export default async function HomePage() {
               role: tAbout("card.signature.role"),
               available: tAbout("card.signature.available"),
             }}
+            availabilityLabel={tA11y("availability")}
           />
         </SectionReveal>
       </TrackedSection>

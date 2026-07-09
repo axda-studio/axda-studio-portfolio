@@ -1,6 +1,5 @@
 "use client"
 
-import Image from "next/image"
 import { MoveUpRight } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
@@ -36,50 +35,24 @@ export function WorkCard({
   liveLabel,
   metrics,
 }: WorkCardProps) {
-  const { theme } = useTheme()
+  const { resolvedTheme } = useTheme()
+  const isDark = resolvedTheme === "dark"
+  const mobileSrc = isDark ? image.src.mobile.dark : image.src.mobile.default
+  const desktopSrc = isDark ? image.src.desktop.dark : image.src.desktop.default
 
   return (
     <article className="overflow-hidden rounded-xl bg-card ring-1 ring-foreground/10">
       <div className="relative aspect-4/3 overflow-hidden lg:aspect-3/1">
-        {theme === "dark" ? (
-          <>
-            <Image
-              src={image.src.mobile.dark}
-              alt={image.alt}
-              fill
-              sizes="(min-width: 1024px) 64rem, 100vw"
-              className="object-cover lg:hidden"
-              priority={false}
-            />
-            <Image
-              src={image.src.desktop.dark}
-              alt={image.alt}
-              fill
-              sizes="(min-width: 1024px) 64rem, 100vw"
-              className="hidden object-cover lg:block"
-              priority={false}
-            />
-          </>
-        ) : (
-          <>
-            <Image
-              src={image.src.mobile.default}
-              alt={image.alt}
-              fill
-              sizes="(min-width: 1024px) 64rem, 100vw"
-              className="object-cover lg:hidden"
-              priority={false}
-            />
-            <Image
-              src={image.src.desktop.default}
-              alt={image.alt}
-              fill
-              sizes="(min-width: 1024px) 64rem, 100vw"
-              className="hidden object-cover lg:block"
-              priority={false}
-            />
-          </>
-        )}
+        <picture>
+          <source media="(min-width: 1024px)" srcSet={desktopSrc} />
+          <img
+            src={mobileSrc}
+            alt={image.alt}
+            loading="lazy"
+            decoding="async"
+            className="absolute inset-0 h-full w-full object-cover"
+          />
+        </picture>
       </div>
 
       <div className="space-y-6 p-6 lg:p-8">

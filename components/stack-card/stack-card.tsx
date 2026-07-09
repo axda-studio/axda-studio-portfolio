@@ -26,7 +26,9 @@ export function StackCard({ label, title, description }: StackCardProps) {
         <span className="font-mono text-tiny tracking-wider text-gray-600 uppercase">
           {label}
         </span>
-        <CardTitle className="text-xl">{title}</CardTitle>
+        <CardTitle as="h3" className="text-xl">
+          {title}
+        </CardTitle>
       </CardHeader>
       <CardContent>
         <CardDescription>

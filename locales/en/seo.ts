@@ -1,0 +1,28 @@
+export default {
+  title: "Alyx Darenne — Frontend Developer (Web & Mobile) | Axda Studio",
+  description:
+    "Senior frontend engineer building beautiful, resilient UIs with Next.js, Expo & TypeScript.",
+  keywords: [
+    "Frontend Developer",
+    "Senior Frontend Engineer",
+    "React",
+    "Next.js",
+    "Expo",
+    "React Native",
+    "TypeScript",
+    "Motion",
+    "Playwright",
+    "SEO",
+    "Accessibility",
+    "i18n",
+    "Freelance",
+    "Remote",
+    "Alyx Darenne",
+    "Axda Studio",
+  ],
+  ogAlt: "Axda Studio — Alyx Darenne, Frontend Developer (Web & Mobile).",
+  ogRole: "Frontend Developer",
+  ogSkills: "Web & Mobile",
+  ogHeadline: "Beautiful UI, built to last.",
+  ogTagline: "Pixels with a backbone.",
+} as const

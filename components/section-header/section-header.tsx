@@ -8,10 +8,10 @@ interface SectionHeaderProps {
 export function SectionHeader({ children, meta }: SectionHeaderProps) {
   return (
     <div className="flex items-center justify-between text-sm">
-      <div className="flex items-center gap-2 font-medium">
-        <span className="size-2 rounded-full bg-primary" />
+      <h2 className="flex items-center gap-2 text-sm font-medium">
+        <span aria-hidden className="size-2 rounded-full bg-primary" />
         {children}
-      </div>
+      </h2>
       {meta ? (
         <span className="font-mono text-tiny text-gray-600">{meta}</span>
       ) : null}

@@ -5,7 +5,7 @@ export async function Footer() {
   const year = new Date().getFullYear()
 
   return (
-    <footer className="mx-auto mt-8 flex max-w-6xl flex-col items-start justify-between gap-3 px-4 pb-24 font-mono text-xs text-gray-600 lg:flex-row lg:items-center lg:gap-6 lg:pb-12">
+    <footer className="mx-auto mt-8 flex max-w-6xl flex-col items-start justify-between gap-3 px-4 pb-24 font-mono text-xs text-muted-foreground lg:flex-row lg:items-center lg:gap-6 lg:pb-12">
       <span>
         {t("copyright")} — {year}
       </span>
