@@ -25,6 +25,7 @@ interface AboutCardProps {
   paragraph4: string
   facts: AboutFact[]
   signature: AboutSignature
+  availabilityLabel?: string
 }
 
 export function AboutCard({
@@ -35,6 +36,7 @@ export function AboutCard({
   paragraph4,
   facts,
   signature,
+  availabilityLabel,
 }: AboutCardProps) {
   return (
     <div className="space-y-6 lg:grid lg:grid-cols-2 lg:gap-14 lg:space-y-0">
@@ -71,7 +73,10 @@ export function AboutCard({
               </span>
             </div>
           </div>
-          <AvailabilityBadge className="mt-2 border-0 shadow-none">
+          <AvailabilityBadge
+            className="mt-2 border-0 shadow-none"
+            ariaLabel={availabilityLabel}
+          >
             {signature.available}
           </AvailabilityBadge>
         </div>

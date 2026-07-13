@@ -189,6 +189,15 @@
   }
   html {
     @apply font-sans;
-    /* scroll-padding-top: 64px; */
+    scroll-padding-top: 96px;
+    scroll-padding-bottom: 96px;
+  }
+}
+
+@layer utilities {
+  /* Lighten the brand brick for text usage in dark mode.
+     Keeps --primary (button bg) unchanged; only overrides text-primary. */
+  .dark .text-primary {
+    color: oklch(0.75 0.13 38);
   }
 }

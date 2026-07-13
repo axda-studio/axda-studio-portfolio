@@ -9,6 +9,8 @@ import about from "./about"
 import faq from "./faq"
 import contact from "./contact"
 import footer from "./footer"
+import seo from "./seo"
+import a11y from "./a11y"
 
 export default {
   common,
@@ -22,4 +24,6 @@ export default {
   faq,
   contact,
   footer,
+  seo,
+  a11y,
 } as const

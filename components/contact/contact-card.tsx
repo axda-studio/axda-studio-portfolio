@@ -38,9 +38,9 @@ export function ContactCard({
 
   return (
     <div className="relative overflow-hidden rounded-xl bg-foreground bg-radial-[circle_at_80%_50%] from-primary/45 from-0% to-transparent to-55% p-8 text-background lg:p-12">
-      <h2 className="text-3xl font-semibold lg:max-w-2xl lg:text-6xl">
+      <h3 className="text-3xl font-semibold lg:max-w-2xl lg:text-6xl">
         {title}
-      </h2>
+      </h3>
 
       <div className="mt-8 flex flex-col items-start gap-4 lg:flex-row lg:items-center lg:gap-6">
         <Button
@@ -68,7 +68,7 @@ export function ContactCard({
                 href={href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="underline decoration-background/40 underline-offset-4 hover:decoration-background"
+                className="rounded-sm underline decoration-background/40 underline-offset-4 hover:decoration-background focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-background"
               >
                 {quickLinks[key]}
               </a>

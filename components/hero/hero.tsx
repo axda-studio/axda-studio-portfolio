@@ -2,7 +2,7 @@
 
 import { HeroCtas } from "@/components/hero"
 import { TrackedSection } from "@/components/section-tracker"
-import { motion } from "motion/react"
+import { motion, useReducedMotion } from "motion/react"
 import { useEffect, useState } from "react"
 
 interface HeroProps {
@@ -28,19 +28,23 @@ interface HeroProps {
 const TYPE_SPEED_MS = 60
 const START_DELAY_MS = 200
 
-const Caret = () => (
-  <motion.span
-    aria-hidden
-    className="ml-1 inline-block h-[0.75em] w-[0.06em] translate-y-[-0.05em] bg-current align-middle"
-    animate={{ opacity: [1, 1, 0, 0] }}
-    transition={{
-      duration: 0.9,
-      repeat: Infinity,
-      times: [0, 0.5, 0.5, 1],
-      ease: "linear",
-    }}
-  />
-)
+const Caret = () => {
+  const shouldReduceMotion = useReducedMotion()
+  if (shouldReduceMotion) return null
+  return (
+    <motion.span
+      aria-hidden
+      className="ml-1 inline-block h-[0.75em] w-[0.06em] translate-y-[-0.05em] bg-current align-middle"
+      animate={{ opacity: [1, 1, 0, 0] }}
+      transition={{
+        duration: 0.9,
+        repeat: Infinity,
+        times: [0, 0.5, 0.5, 1],
+        ease: "linear",
+      }}
+    />
+  )
+}
 
 export const Hero = ({
   tagline,
@@ -53,9 +57,15 @@ export const Hero = ({
   const { tail } = title
   const total = prefix.length + emphasis.length + tail.length
 
-  const [revealed, setRevealed] = useState(0)
+  const shouldReduceMotion = useReducedMotion()
+  const [revealed, setRevealed] = useState(total)
 
   useEffect(() => {
+    if (shouldReduceMotion) return
+    // SSR renders full text (SEO / no-JS / pre-hydration). On the client we
+    // reset to 0 and animate — this cascading render IS the animation trigger.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setRevealed(0)
     const start = setTimeout(() => {
       const id = setInterval(() => {
         setRevealed((r) => {
@@ -68,7 +78,7 @@ export const Hero = ({
       }, TYPE_SPEED_MS)
     }, START_DELAY_MS)
     return () => clearTimeout(start)
-  }, [total])
+  }, [total, shouldReduceMotion])
 
   const prefixLen = prefix.length
   const emphasisLen = emphasis.length
@@ -101,7 +111,7 @@ export const Hero = ({
       <HeroWatermark />
       <div className="flex h-full w-full flex-col gap-y-6">
         <motion.p
-          initial={{ opacity: 0, y: -8 }}
+          initial={shouldReduceMotion ? false : { opacity: 0, y: -8 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4, ease: "easeOut" }}
           className="relative z-10 flex flex-wrap items-center gap-x-2 text-mono-up"
@@ -134,7 +144,7 @@ export const Hero = ({
         </h1>
 
         <motion.div
-          initial={{ opacity: 0, y: 8 }}
+          initial={shouldReduceMotion ? false : { opacity: 0, y: 8 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: bottomDelay, ease: "easeOut" }}
           className="relative z-10 flex flex-col items-start justify-between gap-y-8 lg:flex-row lg:items-end lg:gap-x-8"

@@ -6,10 +6,11 @@ import { NavLink } from "./nav-link"
 
 export async function MobileNav() {
   const t = await getScopedI18n("header")
+  const ta = await getScopedI18n("a11y")
 
   return (
     <nav
-      aria-label="mobile"
+      aria-label={ta("navLabel")}
       className="fixed inset-x-0 bottom-4 z-50 mx-4 rounded-full border bg-popover/70 text-sm backdrop-blur-md lg:hidden"
     >
       <ul className="flex items-center justify-evenly">

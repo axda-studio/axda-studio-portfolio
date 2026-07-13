@@ -79,15 +79,12 @@ describe("WorkCard", () => {
 
   test("in dark theme, renders the dark image variants", () => {
     themeState.theme = "dark"
-    render(<WorkCard {...baseProps} />)
-    const images = screen.getAllByRole("img", { name: baseProps.image.alt })
-    const srcs = images.map((img) => img.getAttribute("src") ?? "")
-    // next/image encodes the src into the query string of its /_next/image url.
-    expect(
-      srcs.some((src) => src.includes(encodeURIComponent("mobile-dark")))
-    ).toBe(true)
-    expect(
-      srcs.some((src) => src.includes(encodeURIComponent("desktop-dark")))
-    ).toBe(true)
+    const { container } = render(<WorkCard {...baseProps} />)
+    const img = screen.getByRole("img", { name: baseProps.image.alt })
+    expect(img).toHaveAttribute("src", baseProps.image.src.mobile.dark)
+    const source = container.querySelector("picture > source[media]")
+    expect(source?.getAttribute("srcset")).toBe(
+      baseProps.image.src.desktop.dark
+    )
   })
 })

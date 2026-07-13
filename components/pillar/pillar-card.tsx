@@ -29,7 +29,7 @@ export function PillarCard({
         <span className="font-mono text-tiny text-gray-600">
           {String(id).padStart(2, "0")} — {label}
         </span>
-        <CardTitle className="text-xl">
+        <CardTitle as="h3" className="text-xl">
           {before}
           <span className="font-serif font-medium text-primary italic">
             {title.emphasis}

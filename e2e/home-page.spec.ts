@@ -450,7 +450,9 @@ test.describe("Home page — mobile viewport", () => {
     header,
   }) => {
     await expect(header.root).toBeHidden()
-    await expect(page.getByRole("navigation", { name: "mobile" })).toBeVisible()
+    await expect(
+      page.getByRole("navigation", { name: /primary/i })
+    ).toBeVisible()
   })
 
   test("renders all five claude-code workflow steps in the mobile list", async ({
@@ -466,7 +468,7 @@ test.describe("Home page — mobile viewport", () => {
   })
 
   test("mobile nav links to the home and section anchors", async ({ page }) => {
-    const mobileNav = page.getByRole("navigation", { name: "mobile" })
+    const mobileNav = page.getByRole("navigation", { name: /primary/i })
     await expect(
       mobileNav.getByRole("link", { name: /home/i })
     ).toHaveAttribute("href", "/")

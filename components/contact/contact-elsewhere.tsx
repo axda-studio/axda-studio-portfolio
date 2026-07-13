@@ -44,7 +44,7 @@ export function ContactElsewhere({ items }: ContactElsewhereProps) {
               {...(external
                 ? { target: "_blank", rel: "noopener noreferrer" }
                 : {})}
-              className="group/elsewhere flex items-start justify-between gap-4 rounded-2xl border border-border bg-card p-4 transition-colors hover:border-foreground/30"
+              className="group/elsewhere flex items-start justify-between gap-4 rounded-2xl border border-border bg-card p-4 transition-colors hover:border-foreground/30 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
             >
               <div className="flex flex-col gap-1.5">
                 <span className="font-mono text-xs tracking-wider text-muted-foreground uppercase">
