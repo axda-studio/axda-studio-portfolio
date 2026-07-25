@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.5.0](https://github.com/axda-studio/axda-studio-portfolio/compare/v0.4.0...v0.5.0) (2026-07-25)
+
+
+### Features
+
+* improvments ([#19](https://github.com/axda-studio/axda-studio-portfolio/issues/19)) ([5c7c383](https://github.com/axda-studio/axda-studio-portfolio/commit/5c7c3836a138a07c2b43118639753dadbbcde9be))
+
 ## [0.4.0](https://github.com/axda-studio/axda-studio-portfolio/compare/v0.3.0...v0.4.0) (2026-07-13)
 
 
