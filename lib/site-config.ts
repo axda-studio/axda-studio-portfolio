@@ -27,7 +27,7 @@ export const siteConfig = {
 export const OG_LOCALE_MAP = {
   en: "en_US",
   fr: "fr_FR",
-  es: "es_ES",
+  // es: "es_ES",
 } as const satisfies Record<(typeof LOCALES)[number], string>
 
 export function localizedPath(locale: string): string {

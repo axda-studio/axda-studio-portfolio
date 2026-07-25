@@ -21,16 +21,19 @@ export function LocaleSelector() {
         nextLocale = "fr"
         break
       case "fr":
-        nextLocale = "es"
-        break
-      case "es":
         nextLocale = "en"
         break
+      // case "fr":
+      //   nextLocale = "es"
+      //   break
+      // case "es":
+      //   nextLocale = "en"
+      //   break
       default:
         nextLocale = "en"
     }
     posthog.capture("locale_changed", { from: locale, to: nextLocale })
-    changeLocale(nextLocale as "en" | "fr" | "es")
+    changeLocale(nextLocale as "en" | "fr" /* | "es" */)
   }
 
   return (

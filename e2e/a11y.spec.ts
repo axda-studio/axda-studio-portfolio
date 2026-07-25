@@ -1,7 +1,7 @@
 import AxeBuilder from "@axe-core/playwright"
 import { test, expect } from "@playwright/test"
 
-const LOCALES = ["en", "fr", "es"] as const
+const LOCALES = ["en", "fr" /* , "es" */] as const
 const THEMES = ["light", "dark"] as const
 
 const AXE_TAGS = [
