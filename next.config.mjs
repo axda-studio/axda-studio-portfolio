@@ -25,6 +25,7 @@ const nextConfig = {
     ]
   },
   skipTrailingSlashRedirect: true,
+  images: { formats: ["image/avif", "image/webp"] },
 }
 
 export default withBundleAnalyzer(nextConfig)

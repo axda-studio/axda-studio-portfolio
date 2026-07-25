@@ -1,9 +1,7 @@
-"use client"
-
+import Image, { type StaticImageData } from "next/image"
 import { MoveUpRight } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
-import { useTheme } from "next-themes"
 
 interface WorkCardMetric {
   value: string
@@ -13,8 +11,8 @@ interface WorkCardMetric {
 interface WorkCardProps {
   image: {
     src: {
-      mobile: { default: string; dark: string }
-      desktop: { default: string; dark: string }
+      mobile: { default: StaticImageData; dark: StaticImageData }
+      desktop: { default: StaticImageData; dark: StaticImageData }
     }
     alt: string
   }
@@ -35,24 +33,37 @@ export function WorkCard({
   liveLabel,
   metrics,
 }: WorkCardProps) {
-  const { resolvedTheme } = useTheme()
-  const isDark = resolvedTheme === "dark"
-  const mobileSrc = isDark ? image.src.mobile.dark : image.src.mobile.default
-  const desktopSrc = isDark ? image.src.desktop.dark : image.src.desktop.default
-
   return (
     <article className="overflow-hidden rounded-xl bg-card ring-1 ring-foreground/10">
       <div className="relative aspect-4/3 overflow-hidden lg:aspect-3/1">
-        <picture>
-          <source media="(min-width: 1024px)" srcSet={desktopSrc} />
-          <img
-            src={mobileSrc}
-            alt={image.alt}
-            loading="lazy"
-            decoding="async"
-            className="absolute inset-0 h-full w-full object-cover"
-          />
-        </picture>
+        <Image
+          fill
+          src={image.src.mobile.default}
+          alt={image.alt}
+          sizes="100vw"
+          className="object-cover lg:hidden dark:hidden"
+        />
+        <Image
+          fill
+          src={image.src.mobile.dark}
+          alt={image.alt}
+          sizes="100vw"
+          className="hidden object-cover dark:block lg:dark:hidden"
+        />
+        <Image
+          fill
+          src={image.src.desktop.default}
+          alt={image.alt}
+          sizes="(max-width: 1023px) 0px, 1120px"
+          className="hidden object-cover lg:block dark:lg:hidden"
+        />
+        <Image
+          fill
+          src={image.src.desktop.dark}
+          alt={image.alt}
+          sizes="(max-width: 1023px) 0px, 1120px"
+          className="hidden object-cover dark:lg:block"
+        />
       </div>
 
       <div className="space-y-6 p-6 lg:p-8">
