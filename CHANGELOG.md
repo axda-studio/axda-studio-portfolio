@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.4.0](https://github.com/axda-studio/axda-studio-portfolio/compare/v0.3.0...v0.4.0) (2026-07-13)
+
+
+### Features
+
+* add SEO optimization ([#17](https://github.com/axda-studio/axda-studio-portfolio/issues/17)) ([116cf76](https://github.com/axda-studio/axda-studio-portfolio/commit/116cf7656283f2c2fc55350953c7eb6e6217b6ea))
+
 ## [0.3.0](https://github.com/axda-studio/axda-studio-portfolio/compare/v0.2.0...v0.3.0) (2026-07-08)
 
 
