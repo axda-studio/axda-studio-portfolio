@@ -55,15 +55,13 @@ export function AboutCard({
       <div className="flex flex-col gap-8 rounded-xl bg-card p-6 ring-1 ring-foreground/10 lg:p-12">
         <div className="flex items-start justify-between gap-4">
           <div className="flex items-center gap-4">
-            <div className="relative size-14 shrink-0 overflow-hidden rounded-full border border-gray-600">
-              <Image
-                fill
-                src="/profile-pic.png"
-                alt={`${signature.firstName} ${signature.lastName}`}
-                sizes="56px"
-                className="object-cover"
-              />
-            </div>
+            <Image
+              src="/profile-pic.webp"
+              width={56}
+              height={56}
+              alt={`${signature.firstName} ${signature.lastName}`}
+              className="size-14 shrink-0 rounded-full border border-gray-600 object-cover"
+            />
             <div className="flex flex-col gap-1 leading-tight">
               <span className="text-base font-medium lg:text-lg">
                 {signature.firstName} {signature.lastName}

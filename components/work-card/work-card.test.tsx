@@ -1,34 +1,25 @@
-import { expect, test, describe, vi, beforeEach } from "vitest"
+import { expect, test, describe } from "vitest"
 import { render, screen } from "@testing-library/react"
+import type { StaticImageData } from "next/image"
 
 import { WorkCard } from "./work-card"
 
-// next-themes is consumed by next/image's parent context indirectly; stub it
-// so the component renders deterministically in jsdom. The theme value is
-// hoisted so individual tests can flip to dark before rendering.
-const themeState = vi.hoisted(() => ({ theme: "light" }))
-
-vi.mock("next-themes", () => ({
-  useTheme: () => ({
-    theme: themeState.theme,
-    resolvedTheme: themeState.theme,
-  }),
-}))
-
-beforeEach(() => {
-  themeState.theme = "light"
+const mockImage = (src: string): StaticImageData => ({
+  src,
+  width: 1200,
+  height: 900,
 })
 
 const baseProps = {
   image: {
     src: {
       mobile: {
-        default: "/img/tyklo-cover--mobile.png",
-        dark: "/img/tyklo-cover--mobile-dark.png",
+        default: mockImage("/img/tyklo-cover--mobile.png"),
+        dark: mockImage("/img/tyklo-cover--mobile-dark.png"),
       },
       desktop: {
-        default: "/img/tyklo-cover--desktop.png",
-        dark: "/img/tyklo-cover--desktop-dark.png",
+        default: mockImage("/img/tyklo-cover--desktop.png"),
+        dark: mockImage("/img/tyklo-cover--desktop-dark.png"),
       },
     },
     alt: "Tyklo preview",
@@ -77,14 +68,22 @@ describe("WorkCard", () => {
     }
   })
 
-  test("in dark theme, renders the dark image variants", () => {
-    themeState.theme = "dark"
+  test("renders all four image variants (mobile/desktop × light/dark) so CSS can swap without JS", () => {
     const { container } = render(<WorkCard {...baseProps} />)
-    const img = screen.getByRole("img", { name: baseProps.image.alt })
-    expect(img).toHaveAttribute("src", baseProps.image.src.mobile.dark)
-    const source = container.querySelector("picture > source[media]")
-    expect(source?.getAttribute("srcset")).toBe(
-      baseProps.image.src.desktop.dark
+    const imgs = container.querySelectorAll("img")
+    const srcs = Array.from(imgs).map(
+      (el) =>
+        // next/image rewrites the src via /_next/image?url=…&w=…; extract the url param
+        new URL(el.getAttribute("src") ?? "", "http://x").searchParams.get(
+          "url"
+        ) ??
+        el.getAttribute("src") ??
+        ""
     )
+    const decoded = srcs.map((s) => (s ? decodeURIComponent(s) : s))
+    expect(decoded).toContain(baseProps.image.src.mobile.default.src)
+    expect(decoded).toContain(baseProps.image.src.mobile.dark.src)
+    expect(decoded).toContain(baseProps.image.src.desktop.default.src)
+    expect(decoded).toContain(baseProps.image.src.desktop.dark.src)
   })
 })

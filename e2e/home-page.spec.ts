@@ -427,15 +427,15 @@ test.describe("Home page — localized routes", () => {
     ).toBeVisible()
   })
 
-  test("renders the Spanish route with a localized nav label", async ({
-    page,
-  }) => {
-    await page.goto("/es")
-    await expect(page).toHaveURL(/\/es\/?$/)
-    await expect(
-      page.getByRole("link", { name: /proyectos/i }).first()
-    ).toBeVisible()
-  })
+  // test("renders the Spanish route with a localized nav label", async ({
+  //   page,
+  // }) => {
+  //   await page.goto("/es")
+  //   await expect(page).toHaveURL(/\/es\/?$/)
+  //   await expect(
+  //     page.getByRole("link", { name: /proyectos/i }).first()
+  //   ).toBeVisible()
+  // })
 })
 
 test.describe("Home page — mobile viewport", () => {

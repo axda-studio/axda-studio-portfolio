@@ -4,5 +4,5 @@ export const { getI18n, getScopedI18n, getStaticParams, getCurrentLocale } =
   createI18nServer({
     en: () => import("./en"),
     fr: () => import("./fr"),
-    es: () => import("./es"),
+    // es: () => import("./es"),
   })

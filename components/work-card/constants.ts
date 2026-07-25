@@ -1,3 +1,8 @@
+import tykloMobile from "@/public/img/work/tyklo/tyklo-cover--mobile.webp"
+import tykloMobileDark from "@/public/img/work/tyklo/tyklo-cover-dark--mobile.webp"
+import tykloDesktop from "@/public/img/work/tyklo/tyklo-cover--desktop.webp"
+import tykloDesktopDark from "@/public/img/work/tyklo/tyklo-cover-dark--desktop.webp"
+
 export const SELECTED_WORK_ITEMS = [
   {
     id: "tyklo",
@@ -5,12 +10,12 @@ export const SELECTED_WORK_ITEMS = [
     image: {
       src: {
         mobile: {
-          default: "/img/work/tyklo/tyklo-cover--mobile.png",
-          dark: "/img/work/tyklo/tyklo-cover-dark--mobile.png",
+          default: tykloMobile,
+          dark: tykloMobileDark,
         },
         desktop: {
-          default: "/img/work/tyklo/tyklo-cover--desktop.png",
-          dark: "/img/work/tyklo/tyklo-cover-dark--desktop.png",
+          default: tykloDesktop,
+          dark: tykloDesktopDark,
         },
       },
       alt: "Tyklo website preview",
