@@ -3,7 +3,8 @@ import { MobileNav } from "@/components/nav"
 import { ReactNode } from "react"
 import { Logo } from "@/components/logo"
 import { Footer } from "@/components/footer"
-import { AvailabilityBadge } from "@/components/availability-badge"
+import { LocaleSelector } from "@/components/locale-selector"
+import { ThemeSelector } from "@/components/theme-selector"
 import { getScopedI18n } from "@/locales/server"
 import { Hero } from "@/components/hero"
 
@@ -13,15 +14,15 @@ export default async function MainLayout({
   children: ReactNode
 }) {
   const t = await getScopedI18n("hero")
-  const ta = await getScopedI18n("a11y")
 
   return (
     <div className="">
       <header className="flex items-center justify-between px-4 py-4 lg:hidden">
         <Logo variant="mobile" />
-        <AvailabilityBadge ariaLabel={ta("availability")}>
-          {t("availability.mobile")}
-        </AvailabilityBadge>
+        <div className="flex items-center gap-2">
+          <ThemeSelector />
+          <LocaleSelector />
+        </div>
       </header>
       <DesktopNav />
       <main id="main-content">
