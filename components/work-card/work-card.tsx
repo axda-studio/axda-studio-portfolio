@@ -2,6 +2,7 @@ import Image, { type StaticImageData } from "next/image"
 import { MoveUpRight } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
+import { MotionCounter } from "@/components/motion-counter"
 
 interface WorkCardMetric {
   value: string
@@ -95,10 +96,10 @@ export function WorkCard({
         <hr className="border-t border-dashed border-border" />
 
         <dl className="grid grid-cols-2 gap-6 lg:grid-cols-4">
-          {metrics.map(({ value, label }) => (
+          {metrics.map(({ value, label }, index) => (
             <div key={label} className="flex flex-col gap-1">
               <dt className="font-serif text-2xl font-medium italic lg:text-3xl">
-                {value}
+                <MotionCounter value={value} delay={index * 0.08} />
               </dt>
               <dd className="font-mono text-tiny tracking-wider text-muted-foreground uppercase">
                 {label}

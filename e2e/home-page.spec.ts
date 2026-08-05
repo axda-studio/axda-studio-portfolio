@@ -132,7 +132,12 @@ test.describe("Home page — work section", () => {
     const section = page.locator("#work")
     for (const id of [1, 2, 3, 4] as const) {
       const metric = enWork.items.tyklo.metrics[id]
-      await expect(section.getByText(metric.value)).toBeVisible()
+      // <MotionCounter> deliberately renders the value twice: an aria-hidden
+      // span that counts up, and an sr-only span holding the final value so
+      // assistive tech is never read a half-counted number. Once the animation
+      // settles both read the same, so the bare text locator is ambiguous —
+      // .first() is the visible one.
+      await expect(section.getByText(metric.value).first()).toBeVisible()
       await expect(section.getByText(metric.label)).toBeVisible()
     }
   })

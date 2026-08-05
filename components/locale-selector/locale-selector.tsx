@@ -44,7 +44,7 @@ export function LocaleSelector() {
     >
       <Globe
         size={20}
-        className="text-foreground transition-transform duration-1000 group-hover:rotate-y-180"
+        className="text-foreground transition-transform group-hover:rotate-90"
       />
       <span className="text-foreground">{t(`options.${locale}`)}</span>
     </Button>
