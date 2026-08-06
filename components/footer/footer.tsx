@@ -1,7 +1,13 @@
-import { getScopedI18n } from "@/locales/server"
+import Link from "next/link"
+
+import { getCurrentLocale, getScopedI18n } from "@/locales/server"
+import { CookieSettingsButton } from "@/components/cookie-consent"
+import { MotionHover } from "@/components/motion-hover"
+import { LEGAL_SEGMENT, localizedPath } from "@/lib/site-config"
 
 export async function Footer() {
   const t = await getScopedI18n("footer")
+  const locale = await getCurrentLocale()
   const year = new Date().getFullYear()
 
   return (
@@ -9,7 +15,19 @@ export async function Footer() {
       <span>
         {t("copyright")} — {year}
       </span>
-      <span>{t("builtWith")}</span>
+      <span className="flex items-center gap-3">
+        <MotionHover>
+          <Link
+            href={localizedPath(locale, LEGAL_SEGMENT)}
+            data-testid="footer-legal-link"
+            className="transition-colors hover:text-foreground"
+          >
+            {t("legal")}
+          </Link>
+        </MotionHover>
+        <CookieSettingsButton />
+        {/* <span>{t("builtWith")}</span> */}
+      </span>
     </footer>
   )
 }

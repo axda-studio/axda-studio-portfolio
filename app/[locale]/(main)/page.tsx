@@ -31,7 +31,7 @@ export default async function HomePage() {
   const tA11y = await getScopedI18n("a11y")
 
   return (
-    <div className="mx-auto max-w-6xl space-y-12 px-4 lg:space-y-24">
+    <div className="mx-auto max-w-6xl space-y-16 px-4 lg:space-y-24">
       <TrackedSection section="pillars" id="pillars">
         <SectionReveal className="space-y-6">
           <SectionHeader meta={tPillars("counter")}>

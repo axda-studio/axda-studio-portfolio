@@ -106,7 +106,7 @@ export const Hero = ({
     <TrackedSection
       section="hero"
       id="hero"
-      className="relative mx-auto flex w-full max-w-6xl flex-col justify-center overflow-hidden px-4 py-14 lg:min-h-screen lg:px-0 lg:py-0"
+      className="relative mx-auto flex w-full max-w-6xl flex-col justify-center overflow-hidden px-4 py-16 lg:min-h-screen lg:px-0 lg:py-0"
     >
       <HeroWatermark />
       <div className="flex h-full w-full flex-col gap-y-6">

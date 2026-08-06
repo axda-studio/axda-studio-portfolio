@@ -9,13 +9,13 @@ export default {
   },
   title: {
     headline: {
-      prefix: "Belle",
+      prefix: "Esthétique",
       emphasis: "UI",
     },
-    tail: "conçue pour durer.",
+    tail: "pensée pour durer.",
   },
   subtitle: {
-    prefix: "Interfaces conçues pour la résilience et optimisées pour",
+    prefix: "Interfaces taillées pour la résilience, optimisées pour",
     emphasis: "la croissance.",
   },
   ctaPrimary: "Voir mes projets",

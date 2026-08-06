@@ -5,6 +5,8 @@ export default {
   keywords: [
     "Frontend Developer",
     "Senior Frontend Engineer",
+    "Web Developer",
+    "Mobile Developer",
     "React",
     "Next.js",
     "Expo",

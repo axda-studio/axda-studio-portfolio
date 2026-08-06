@@ -12,3 +12,6 @@ export const test = base.extend<Fixtures>({
 })
 
 export { expect } from "@playwright/test"
+export { hideDevOverlay } from "./dev-overlay"
+export { BANNER, settleBanner, preAnswerConsent } from "./consent"
+export { clickAndExpectUrl } from "./navigation"

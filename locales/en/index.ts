@@ -9,6 +9,9 @@ import about from "./about"
 import faq from "./faq"
 import contact from "./contact"
 import footer from "./footer"
+import cookies from "./cookies"
+import legal from "./legal"
+import errors from "./errors"
 import seo from "./seo"
 import a11y from "./a11y"
 
@@ -24,6 +27,9 @@ export default {
   faq,
   contact,
   footer,
+  cookies,
+  legal,
+  errors,
   seo,
   a11y,
 } as const

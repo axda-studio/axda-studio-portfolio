@@ -1,10 +1,12 @@
 export default {
   title: "Alyx Darenne — Développeur Frontend (Web & Mobile) | Axda Studio",
   description:
-    "Développeur frontend senior : interfaces belles et résilientes avec Next.js, Expo & TypeScript.",
+    "Développeur frontend senior : interfaces esthétiques et résilientes avec Next.js, Expo & TypeScript.",
   keywords: [
     "Développeur Frontend",
     "Développeur React",
+    "Développeur Web",
+    "Développeur Mobile",
     "Ingénieur Frontend",
     "React",
     "Next.js",
@@ -24,6 +26,6 @@ export default {
   ogAlt: "Axda Studio — Alyx Darenne, développeur frontend (Web & Mobile).",
   ogRole: "Développeur Frontend",
   ogSkills: "Web & Mobile",
-  ogHeadline: "Belle UI, conçue pour durer.",
+  ogHeadline: "Esthétique UI, pensée pour durer.",
   ogTagline: "Pixels with a backbone.",
 } as const
