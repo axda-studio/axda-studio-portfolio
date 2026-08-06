@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.6.0](https://github.com/axda-studio/axda-studio-portfolio/compare/v0.5.0...v0.6.0) (2026-08-06)
+
+
+### Features
+
+* add cookie banner + error handling ([#21](https://github.com/axda-studio/axda-studio-portfolio/issues/21)) ([cf14677](https://github.com/axda-studio/axda-studio-portfolio/commit/cf146779deb75dcde6a96b9e84e8578044caefd9))
+
 ## [0.5.0](https://github.com/axda-studio/axda-studio-portfolio/compare/v0.4.0...v0.5.0) (2026-07-25)
 
 
