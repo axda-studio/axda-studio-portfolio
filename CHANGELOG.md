@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.6.1](https://github.com/axda-studio/axda-studio-portfolio/compare/v0.6.0...v0.6.1) (2026-08-08)
+
+
+### Bug Fixes
+
+* update posthog config ([#23](https://github.com/axda-studio/axda-studio-portfolio/issues/23)) ([60fbe3a](https://github.com/axda-studio/axda-studio-portfolio/commit/60fbe3a482fce4f17f6e8960678669bec3f791dc))
+
 ## [0.6.0](https://github.com/axda-studio/axda-studio-portfolio/compare/v0.5.0...v0.6.0) (2026-08-06)
 
 
