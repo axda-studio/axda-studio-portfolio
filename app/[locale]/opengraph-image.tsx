@@ -1,6 +1,6 @@
 import { ImageResponse } from "next/og"
 import { LOCALES } from "@/locales/constants"
-import { siteConfig } from "@/lib/site-config"
+import { DISPLAY_HOSTNAME, siteConfig } from "@/lib/site-config"
 import enSeo from "@/locales/en/seo"
 import frSeo from "@/locales/fr/seo"
 import esSeo from "@/locales/es/seo"
@@ -36,7 +36,9 @@ export default async function OGImage({
   const inkMuted = "#5C5A54"
   const brick = "#A1553A"
   const mark = "#F6F5F1"
-  const host = new URL(siteConfig.url).host
+  // Branding, not a link: the card reads "axda-studio.fr" even though the site
+  // is served from the www host.
+  const host = DISPLAY_HOSTNAME
 
   return new ImageResponse(
     <div

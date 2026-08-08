@@ -1,7 +1,10 @@
 import { LOCALES } from "@/locales/constants"
 
 export const siteConfig = {
-  url: "https://axda-studio.fr",
+  // `www` because that is what Vercel actually serves: the apex 308-redirects
+  // here. Canonicals, the sitemap and robots must name the host that answers
+  // with a 200, or every URL we declare canonical points at a redirect.
+  url: "https://www.axda-studio.fr",
   name: "Axda Studio",
   legalName: "Axda Studio®",
   tagline: "Pixels with a backbone.",
@@ -65,6 +68,18 @@ export const OG_LOCALE_MAP = {
   fr: "fr_FR",
   // es: "es_ES",
 } as const satisfies Record<(typeof LOCALES)[number], string>
+
+/**
+ * `www.` is a serving detail, not part of the brand. Strip it whenever the
+ * hostname is being matched or shown, so the apex and the www form are treated
+ * as the same site and neither leaks into copy.
+ */
+export function bareHostname(hostname: string): string {
+  return hostname.replace(/^www\./, "")
+}
+
+/** The domain as it should be *read* — OG images, prose — never as it is served. */
+export const DISPLAY_HOSTNAME = bareHostname(new URL(siteConfig.url).hostname)
 
 export function localizedPath(locale: string, segment?: string): string {
   return segment ? `/${locale}/${segment}` : `/${locale}`
