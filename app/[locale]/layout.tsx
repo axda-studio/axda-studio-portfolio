@@ -9,6 +9,7 @@ import { CookieConsent } from "@/components/cookie-consent"
 import { I18nProviderClient } from "@/locales/client"
 import { cn } from "@/lib/utils"
 import { fontClassNames } from "@/lib/fonts"
+import { getBaseUrl } from "@/lib/base-url"
 import { OG_LOCALE_MAP, localizedPath, siteConfig } from "@/lib/site-config"
 import { buildStructuredData } from "@/lib/structured-data"
 import enSeo from "@/locales/en/seo"
@@ -44,7 +45,10 @@ export async function generateMetadata({
   const path = localizedPath(locale)
 
   return {
-    metadataBase: new URL(siteConfig.url),
+    // Every relative URL below (canonical, og:url, the OG image) resolves
+    // against this. On a preview it has to be the preview's own host, or a
+    // shared link advertises production URLs it did not actually render.
+    metadataBase: new URL(getBaseUrl()),
     title: { default: seo.title, template: `%s | ${siteConfig.name}` },
     description: seo.description,
     keywords: [...seo.keywords],

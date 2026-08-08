@@ -81,7 +81,7 @@ export function buildStructuredData(locale: Locale) {
           "@type": "Occupation",
           name: siteConfig.author.jobTitle,
           occupationLocation: {
-            "@type": "Place",
+            "@type": "AdministrativeArea",
             name: "Europe",
           },
           skills: [...KNOWS_ABOUT].join(", "),
